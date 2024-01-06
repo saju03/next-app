@@ -39,7 +39,8 @@ export const authHandler = async (req: NextRequest, res: NextResponse) => {
         params,
         config
       );
-      //tsst one
+      //tsst ones
+      let a =20;
       return tokenResponse.data;
 
 
