@@ -1,0 +1,167 @@
+/* Typography CSS */
+
+@font-face {
+    font-family: 'Muli';
+    src: url('../fonts/Muli.eot');
+    src: url('../fonts/Muli.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Muli.woff2') format('woff2'),
+        url('../fonts/Muli.woff') format('woff'),
+        url('../fonts/Muli.ttf') format('truetype'),
+        url('../fonts/Muli.svg#Muli') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Muli';
+    src: url('../fonts/Muli-Bold.eot');
+    src: url('../fonts/Muli-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Muli-Bold.woff2') format('woff2'),
+        url('../fonts/Muli-Bold.woff') format('woff'),
+        url('../fonts/Muli-Bold.ttf') format('truetype'),
+        url('../fonts/Muli-Bold.svg#Muli-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Muli';
+    src: url('../fonts/Muli-SemiBold.eot');
+    src: url('../fonts/Muli-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Muli-SemiBold.woff2') format('woff2'),
+        url('../fonts/Muli-SemiBold.woff') format('woff'),
+        url('../fonts/Muli-SemiBold.ttf') format('truetype'),
+        url('../fonts/Muli-SemiBold.svg#Muli-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+	font-family: 'DroidKufiBold';
+	src: url('../fonts/DroidKufiBold.eot');
+	src: url('../fonts/DroidKufiBold.eot') format('embedded-opentype'), url('../fonts/DroidKufiBold.woff2') format('woff2'), url('../fonts/DroidKufiBold.woff') format('woff'), url('../fonts/DroidKufiBold.ttf') format('truetype'), url('../fonts/DroidKufiBold.svg#DroidKufiBold') format('svg');
+}
+@font-face {
+	font-family: 'DroidKufiRegular';
+	src: url('../fonts/DroidKufiRegular.eot');
+	src: url('../fonts/DroidKufiRegular.eot') format('embedded-opentype'), url('../fonts/DroidKufiRegular.woff2') format('woff2'), url('../fonts/DroidKufiRegular.woff') format('woff'), url('../fonts/DroidKufiRegular.ttf') format('truetype'), url('../fonts/DroidKufiRegular.svg#DroidKufiRegular') format('svg');
+}
+body{
+    font-family:'Muli', 'DroidKufiRegular' !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow-x:hidden !important;
+    background:#fbfbfb;
+    color: #373e43;
+    font-size: 14px;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+div,p,a,ul li,span,b,strong,select,input,button,h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
+    font-family:'Muli', 'DroidKufiRegular';
+}
+a{
+    transition:all ease 0.5s;
+    -o-transition:all ease 0.5s;
+    -webkit-transition:all ease 0.5s;
+    text-decoration: none;
+	cursor:pointer;
+}
+a:focus,a:active,a:visited,a:hover{
+    text-decoration:none;
+}
+
+*,:before,:after{
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+ul,ol{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+select{
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -o-appearance:none;
+    -ms-appearance:none;
+    text-indent:1px;
+    -o-text-overflow:'';
+    text-overflow:'';
+}
+select::-ms-expand, input[type=text]::-ms-clear{
+    display:none;
+}
+input:focus, button:focus, select:focus{
+    outline:none;
+    box-shadow: none;
+}
+input,button,select,textarea{
+    font-family:inherit;
+    font-size:inherit;
+    line-height:inherit;
+}
+button{
+    cursor:pointer;
+}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
+    margin-bottom:0;
+    font-weight:normal;
+    font-family:inherit;
+    font-size:inherit;
+    line-height:inherit;
+}
+html{
+    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+}
+img{
+    vertical-align:middle;
+    max-width:100%;
+    height:auto;
+}
+.overflow-hidden{
+    overflow:hidden !important;
+}
+.clear{
+    clear:both;
+}
+.dir_default{
+    direction:ltr;
+}
+.form-control:focus{
+    box-shadow: none;
+}
+.minHeight{
+    min-height: 550px;
+}
+.btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show>.btn-success.dropdown-toggle{
+    background: none;
+    border: none;
+    font-size: 14px;
+    padding: 0;
+    display: flex;
+}
+.theme_btnStyle {
+    cursor: pointer;
+    color: #ffffff;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    line-height: 40px;
+    padding: 0 20px;
+    border: none;
+   background-color: #cea241;
+}
+
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl{
+        max-width: 1200px !important;
+}
+/*Theme style start here*/
+
+

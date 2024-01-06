@@ -1,0 +1,44 @@
+import { NextRequest, NextResponse } from "next/server";
+
+import { authHandler } from "./controllers/AuthController";
+import axios, { AxiosResponse } from "axios";
+
+interface Headers {
+    [key: string]: string;
+  }
+  interface Config {
+    headers: Headers;
+  }
+  
+type userInfoType  ={
+    userName:string,
+    password:string
+}
+type loginErrType ={
+    message:string,
+    status:number
+}
+
+// route /api
+export async function POST(req: NextRequest,res:NextResponse) {
+    const response = await authHandler(req,res);
+//     if(response.status!==200){
+//         return NextResponse.json({message:response.message},{status:response.status})
+//     }else{
+//         let config: Config = {
+//             headers: {
+//                 'Content-Type': 'application/x-www-form-urlencoded'
+//             },
+//           };
+//         const url:string = `${process.env.API_URL}token`
+//         const params = `username=${response?.userInfo?.userName}&password=${response.userInfo.password}&grant_type=password&type=auth`
+//         const data:AxiosResponse = await axios.post(url,params,config)
+
+//         console.log(data);
+        
+
+
+    return NextResponse.json( response );
+
+// }
+}
