@@ -34,22 +34,18 @@ export const authHandler = async (req: NextRequest, res: NextResponse) => {
 
     // Get New Token
     try {
-      const tokenResponse: AxiosResponse = await axios.post<ApiResponse>(
-        url,
-        params,
-        config
-      );
-      //tsst ones
-      // new banch
-      let a =20;
-      return tokenResponse.data;
+      const tokenResponse: AxiosResponse = await axios.post<ApiResponse>(url,params,config);
 
 
-
-
-
-
+      const newExpiryTime = new Date(tokenResponse.data['.expires']);
+      newExpiryTime.setMinutes(newExpiryTime.getMinutes()-7)
       
+      // localStorage.setItem('token','tokenResponse.data.access_token')
+
+      // console.log(expireDate);
+      
+
+      return tokenResponse.data;
     } catch (error) {
       console.error;
     }

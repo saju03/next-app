@@ -1,14 +1,15 @@
 'use client'
 
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 
 
 
 export default function FlightSearch() {
 
     const handleSubmit = async ()=>{
-        const data = await axios.post('http://localhost:3000/api');
-        console.log(data);
+        const response:AxiosResponse = await axios.post('http://localhost:3000/api');
+        localStorage.setItem('access_token',response.data.access_token)
+        console.log(response);  
         
 
     }
