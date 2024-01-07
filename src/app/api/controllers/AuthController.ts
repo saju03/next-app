@@ -36,7 +36,6 @@ export const authHandler = async (req: NextRequest, res: NextResponse) => {
     try {
       const tokenResponse: AxiosResponse = await axios.post<ApiResponse>(url,params,config);
 
-
       const newExpiryTime = new Date(tokenResponse.data['.expires']);
       newExpiryTime.setMinutes(newExpiryTime.getMinutes()-7)
       
@@ -44,8 +43,12 @@ export const authHandler = async (req: NextRequest, res: NextResponse) => {
 
       // console.log(expireDate);
       
+      const token ={
+        access_token :tokenResponse.data.access_token,
+        expireTime:newExpiryTime
+      }
 
-      return tokenResponse.data;
+      return token;
     } catch (error) {
       console.error;
     }

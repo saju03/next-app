@@ -1,7 +1,9 @@
 import FlightSearch from "@/components/Flight/FlightSearch"
 import HeaderNavBar from "@/components/HeaderNavBar"
 
-export default function Home() {
+export default  function Home() {
+
+
   return (
      <>
   <meta charSet="utf-8" />

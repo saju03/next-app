@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { authHandler } from "./controllers/AuthController";
-import axios, { AxiosResponse } from "axios";
+import { authHandler } from "../controllers/AuthController";
 
 interface Headers {
     [key: string]: string;
