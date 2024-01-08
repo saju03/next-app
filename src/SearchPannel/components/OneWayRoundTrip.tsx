@@ -3,14 +3,23 @@ import DownShift from "./DownShift";
 import React, { useState } from "react";
 import { DatePicker, RangePicker } from "react-ease-picker";
 import TravellerBox from "./TravellerBox";
+import { OneWayRoundSearchDataType, TwoSearchTypes } from "@/Interfaces";
+
+
+interface SearchDataProps{
+  searchData:OneWayRoundSearchDataType;
+  setSearchData:React.Dispatch<React.SetStateAction<TwoSearchTypes>>
+}
+
+
     
-export default function OneWayRoundTrip({searchData,setSearchData}:any) {
+export default function OneWayRoundTrip({searchData,setSearchData}:SearchDataProps) {
 
 
     const [isOpen,setOpen] = useState(false)
  const HandleSubmit = (e:any)=>{
     e.preventDefault()
-    if(searchData.fromCity==''||searchData.toCity==''||searchData.fromCity?._id ==searchData.toCity?._id){
+    if(searchData.fromCity==null||searchData.toCity==null||searchData.fromCity._id==searchData.toCity._id){
         alert('enter valid city or airport')
     }
 
@@ -30,12 +39,12 @@ export default function OneWayRoundTrip({searchData,setSearchData}:any) {
             <div className="field_row">
               <div className="field_clm_3">
                 <div className="form-group location_icon">
-                  <DownShift searchData = {searchData} setSearchData= {setSearchData} fromCity={true}/>
+                  <DownShift searchData = {searchData} setSearchData= {setSearchData} isFromCity={true}/>
                 </div>
               </div>
               <div className="field_clm_3">
                 <div className="form-group location_icon">
-                  <DownShift searchData = {searchData} setSearchData= {setSearchData} fromCity={false} />
+                  <DownShift searchData = {searchData} setSearchData= {setSearchData} isFromCity={false} />
                 </div>
               </div>
               <div className="hm_clndr_main">

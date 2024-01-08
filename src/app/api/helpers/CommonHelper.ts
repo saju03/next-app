@@ -1,33 +1,8 @@
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import axios, { AxiosResponse } from "axios";
+import { ApiResponse, Config, IP, ParamsType } from "@/Interfaces";
 
-interface Headers {
-  [key: string]: string;
-}
 
-interface ApiResponseSuccess {
-    userName: string;
-    password: string;
-  }
-  
-
-interface Config {
-  headers: Headers;
-}
-
-type IP = string | null;
-type ParamsType = {
-  Device: string;
-  UserAgent: string;
-  IPAddress: IP;
-  AffiliateID: any;
-  Securitykey: string;
-  IsMobileWeb: boolean;
-};
-interface ApiResponse {
-  userName: string;
- password:string
-}
 
 
 export const getDeviceLogin = async (headersList: ReadonlyHeaders) => {

@@ -1,16 +1,35 @@
 import axios from "axios";
 import React, { useState } from "react";
 import Downshift from "downshift";
-export default function DownShift({searchData,setSearchData,fromCity}:any) {
+import {  TwoSearchTypes } from "@/Interfaces";
+
+
+
+
+
+interface PropsType {
+  searchData:TwoSearchTypes
+  setSearchData: React.Dispatch<React.SetStateAction<TwoSearchTypes>>
+  isFromCity: boolean;
+  index:number;
+  isMultiCity:boolean
+}
+
+
+
+
+
+
+export default function DownShift({searchData,setSearchData,isFromCity}:PropsType) {
   const [airpostList, setAirportList] = useState([]);
   const [inputVal, setInputVal] = useState("");
   const getAirPortList = async (e: any) => {
-    if(fromCity&&e.target.value==''){
-        setSearchData({...searchData,fromCity:''})
+    if(isFromCity&&e.target.value==''){
+       setSearchData({...searchData,fromCity:null})
     }
     
-    if(!fromCity&&e.target.value==''){
-        setSearchData({...searchData,toCity:''})
+    if(!isFromCity&&e.target.value==''){
+        setSearchData({...searchData,toCity:null})
     }
     setInputVal(e.target.value);
     const { data } = await axios.get(
@@ -20,20 +39,26 @@ export default function DownShift({searchData,setSearchData,fromCity}:any) {
   };
 
   const handleChange = (e: any) => {
-    if(fromCity){
+
+    if(searchData.searchType!='MultiCity'){
+       if(isFromCity){
         setSearchData({...searchData,fromCity:e})
     }else{
         setSearchData({...searchData,toCity:e})
     }
+    }else{
+
+    }
+   
   
     setInputVal(e._source.city +"-" +e._source.name +"-" +e._source.countryname +"(" +e._source.code +")");
   };
   return (
     <>
-      <Downshift onChange={handleChange} itemToString={(item)=>item._source.city +"-" +item._source.name +"-" +item._source.countryname +"(" +item._source.code +")"}>
+      <Downshift onChange={handleChange} itemToString={(item)=>item?._source?.city}>
         {({ getInputProps, getItemProps, isOpen, inputValue }) => (
           <div>
-            <label>{fromCity?"Leaving from":"Going to"}</label>
+            <label>{isFromCity?"Leaving from":"Going to"}</label>
             <input
               {...getInputProps({
                 placeholder: "Select an option",

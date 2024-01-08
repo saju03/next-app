@@ -2,21 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { authHandler } from "../controllers/AuthController";
 
-interface Headers {
-    [key: string]: string;
-  }
-  interface Config {
-    headers: Headers;
-  }
-  
-type userInfoType  ={
-    userName:string,
-    password:string
-}
-type loginErrType ={
-    message:string,
-    status:number
-}
+
+
 
 // route /api
 export async function POST(req: NextRequest,res:NextResponse) {

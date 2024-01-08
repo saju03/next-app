@@ -3,18 +3,10 @@ import { headers } from "next/headers";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { getDeviceLogin } from "../helpers/CommonHelper";
 import axios, { AxiosResponse } from "axios";
+import { ApiResponse, Config, TokenTypes } from "@/Interfaces";
 
-interface Headers {
-  [key: string]: string;
-}
-interface Config {
-  headers: Headers;
-}
 
-interface ApiResponse {
-  userName: string;
-  password: string;
-}
+
 
 export const authHandler = async (req: NextRequest, res: NextResponse) => {
   const headersList: ReadonlyHeaders = headers();
@@ -31,13 +23,13 @@ export const authHandler = async (req: NextRequest, res: NextResponse) => {
     };
     const url: string = `${process.env.NEXT_PUBLIC_API_URL}token`;
     
-    const params = `username=${userInfo?.userName}&password=${userInfo.password}&grant_type=password&type=auth`;
+    const params:string = `username=${userInfo?.userName}&password=${userInfo.password}&grant_type=password&type=auth`;
 
     // Get New Token
     try {
       const tokenResponse: AxiosResponse = await axios.post<ApiResponse>(url,params,config);
 
-      const newExpiryTime = new Date(tokenResponse.data['.expires']);
+      const newExpiryTime:Date = new Date(tokenResponse.data['.expires']);
       newExpiryTime.setMinutes(newExpiryTime.getMinutes()-7)
       
       // localStorage.setItem('token','tokenResponse.data.access_token')
@@ -45,7 +37,7 @@ export const authHandler = async (req: NextRequest, res: NextResponse) => {
       // console.log(expireDate);
       // console.log(tokenResponse);
       
-      const token ={
+      const token:TokenTypes ={
         access_token :tokenResponse.data.access_token,
         expireTime:newExpiryTime,
         token_type:tokenResponse.data.token_type,
@@ -75,12 +67,12 @@ const config: Config = {
 };
 
 try {
-const refreshToken =   await axios.post(url,params,config);
+const refreshToken:AxiosResponse =   await axios.post(url,params,config);
 
-const newExpiryTime = new Date(refreshToken.data['.expires']);
+const newExpiryTime:Date = new Date(refreshToken.data['.expires']);
 newExpiryTime.setMinutes(newExpiryTime.getMinutes()-7);
   
-const token ={
+const token:TokenTypes ={
   access_token :refreshToken.data.access_token,
   expireTime:newExpiryTime,
   token_type:refreshToken.data.token_type,
