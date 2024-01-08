@@ -6,6 +6,10 @@ export default function TravellerBox({
   searchData,
   setSearchData,
 }: any) {
+
+// use redux to store the session data for a backups 
+
+
   const handleTravelerPlus = (pax: number) => {
     switch (pax) {
       case 0:

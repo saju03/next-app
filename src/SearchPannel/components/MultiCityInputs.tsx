@@ -26,12 +26,12 @@ export default function MultiCityInputs({ MultiCitySearchData, setMultiCitySearc
             <div className="field_row hm_multycity">
                 <div className="field_clm_3">
                     <div className="form-group location_icon">
-                        <DownShift searchData ={MultiCitySearchData} setSearchData ={setMultiCitySearchData} index ={index} isFromCity={false} />
+                        <DownShift searchData ={MultiCitySearchData} setSearchData ={setMultiCitySearchData} index ={index} isFromCity={true} isMultiCity={true} />
                     </div>
                 </div>
                 <div className="field_clm_3">
                     <div className="form-group location_icon">
-                    <DownShift searchData ={MultiCitySearchData} setSearchData ={setMultiCitySearchData} index ={index} isFromCity={false} />
+                    <DownShift searchData ={MultiCitySearchData} setSearchData ={setMultiCitySearchData} index ={index} isFromCity={false}  isMultiCity={true}/>
                     </div>
                 </div>
                 <div className="field_clm_2">

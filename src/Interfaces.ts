@@ -42,22 +42,26 @@ export interface ApiResponse {
 
 
 export  type MultiCitySearchDataType = {
-    fromCity1: string;
-    toCity1: string;
-    fromCity2: string;
-    toCity2: string;
-    fromCity3: string;
-    toCity3: string;
-    fromCity4: string;
-    toCity4: string;
-    legDate1: string;
-    legDate2: string;
-    legDate3: string;
-    legDate4: string;
+    fromCity1: string|AirportData|null;
+    toCity1: string|AirportData|null;
+    fromCity2: string|AirportData|null;
+    toCity2: string|AirportData|null;
+    fromCity3: string|AirportData|null;
+    toCity3: string|AirportData|null;
+    fromCity4: string|AirportData|null;
+    toCity4: string|AirportData|null;
+    legDate1: string|AirportData|null;
+    legDate2: string|AirportData|null;
+    legDate3: string|AirportData|null;
+    legDate4: string|AirportData|null;
     adult: number;
     child: number;
     infant: number;
     searchType: string;
+    fromCity: AirportData|null;
+    toCity: AirportData|null;
+    fromDate: string; // Assuming fromDate is a string
+    toDate: string; // Assuming toDate is a string
 }
 
 export type OneWayRoundSearchDataType= {
@@ -73,8 +77,10 @@ export type OneWayRoundSearchDataType= {
 
 
 export interface MultiCityComponentProps {
-    MultiCitySearchData: MultiCitySearchDataType;
-    setMultiCitySearchData: React.Dispatch<React.SetStateAction<MultiCitySearchDataType>>;
+    MultiCitySearchData: TwoSearchTypes;
+    setMultiCitySearchData: React.Dispatch<React.SetStateAction<TwoSearchTypes>>;
+    index:number;
+    isMultiCity:boolean;
   }
 
   export type TwoSearchTypes =  OneWayRoundSearchDataType|MultiCitySearchDataType
@@ -105,3 +111,11 @@ export interface MultiCityComponentProps {
       displaynamear: null | string; 
     };
   };
+
+  export interface SearchDataProps{
+    searchData:TwoSearchTypes;
+    setSearchData:React.Dispatch<React.SetStateAction<TwoSearchTypes>>
+    index:number;
+    isMultiCity:boolean;
+  }
+  

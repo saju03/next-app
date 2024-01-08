@@ -3,16 +3,9 @@ import DownShift from "./DownShift";
 import React, { useState } from "react";
 import { DatePicker, RangePicker } from "react-ease-picker";
 import TravellerBox from "./TravellerBox";
-import { OneWayRoundSearchDataType, TwoSearchTypes } from "@/Interfaces";
+import {  SearchDataProps } from "@/Interfaces";
 
-
-interface SearchDataProps{
-  searchData:OneWayRoundSearchDataType;
-  setSearchData:React.Dispatch<React.SetStateAction<TwoSearchTypes>>
-}
-
-
-    
+   
 export default function OneWayRoundTrip({searchData,setSearchData}:SearchDataProps) {
 
 
@@ -39,12 +32,12 @@ export default function OneWayRoundTrip({searchData,setSearchData}:SearchDataPro
             <div className="field_row">
               <div className="field_clm_3">
                 <div className="form-group location_icon">
-                  <DownShift searchData = {searchData} setSearchData= {setSearchData} isFromCity={true}/>
+                  <DownShift searchData = {searchData} setSearchData= {setSearchData} isFromCity={true} index={1} isMultiCity={false}/>
                 </div>
               </div>
               <div className="field_clm_3">
                 <div className="form-group location_icon">
-                  <DownShift searchData = {searchData} setSearchData= {setSearchData} isFromCity={false} />
+                  <DownShift searchData = {searchData} setSearchData= {setSearchData} isFromCity={false} index={1} isMultiCity={false}/>
                 </div>
               </div>
               <div className="hm_clndr_main">
@@ -72,8 +65,6 @@ export default function OneWayRoundTrip({searchData,setSearchData}:SearchDataPro
                       onSelect={(start, end) => {
                         console.log(start, end);
                       }}
-                    
-                     
                     />
                   </div>
                 </div>
@@ -102,7 +93,7 @@ export default function OneWayRoundTrip({searchData,setSearchData}:SearchDataPro
                       Non Stop
                     </label>
                   </div>
-                </div>
+                </div> 
               </div>
             </div>
           </div>

@@ -3,13 +3,10 @@ import MultiCityInputs from "./MultiCityInputs";
 import { MultiCityComponentProps } from "@/Interfaces";
 
 
-// Define a type for the array elements
 type LoopLengthElementType = number;
 
-// Define a type for the setLoopLength function
 type SetLoopLengthType = React.Dispatch<React.SetStateAction<LoopLengthElementType[]>>;
 
-// Define a type or interface for the component props
 interface MyComponentProps {
   loopLength: LoopLengthElementType[];
   setLoopLength: SetLoopLengthType;
@@ -41,7 +38,7 @@ export default function MultiCity({ MultiCitySearchData, setMultiCitySearchData 
             {
               loopLength.map((i) => {
                 return (
-                  <MultiCityInputs MultiCitySearchData={MultiCitySearchData} setMultiCitySearchData={setMultiCitySearchData} index={i} key={i} loopLength={loopLength} setLoopLength={setLoopLength} />
+                  <MultiCityInputs MultiCitySearchData={MultiCitySearchData} setMultiCitySearchData={setMultiCitySearchData} index={i} key={i} loopLength={loopLength} setLoopLength={setLoopLength} isMultiCity={true} />
                 )
               })
             }
