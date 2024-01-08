@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from "axios";
 interface Headers {
   [key: string]: string;
 }
+
 interface ApiResponseSuccess {
     userName: string;
     password: string;
@@ -37,7 +38,8 @@ export const getDeviceLogin = async (headersList: ReadonlyHeaders) => {
     },
   };
 
-  const url: string = `${process.env.API_URL}api/UserAccount/BasicAuth`;
+  const url: string = `${process.env.NEXT_PUBLIC_API_URL}api/UserAccount/BasicAuth`;
+  
   const params: ParamsType = {
     Device: "Browser",
     UserAgent: "string",

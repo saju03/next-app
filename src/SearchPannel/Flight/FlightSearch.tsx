@@ -5,6 +5,14 @@ import { useEffect, useState } from "react";
 import TabBtns from "../components/TabBtns";
 import OneWayRoundTrip from "../components/OneWayRoundTrip";
 import MultiCity from "../components/MultiCity";
+interface Headers {
+  [key: string]: string;
+}
+interface Config {
+  headers: Headers;
+}
+
+
 
 export default function FlightSearch() {
 
@@ -16,6 +24,7 @@ export default function FlightSearch() {
       );
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("expireTime", response.data.expireTime);
+      localStorage.setItem("refresh_token", response.data.refresh_token);
       return;
     } catch (error) {
         console.log(error);
@@ -23,16 +32,32 @@ export default function FlightSearch() {
     }
   }
 
+  const getRefreshToken =async () => {
+    const refreshToken:string|null = localStorage.getItem('refresh_token')
+
+    try {
+      const {data} = await axios.post('http://localhost:3000/api/get-refresh-token',{refreshToken:refreshToken});
+      
+      localStorage.setItem("access_token",data.token.access_token);
+      localStorage.setItem("expireTime", data.token.expireTime);
+      localStorage.setItem("refresh_token", data.token.refresh_token);
+      
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
+
 
   const verifyToken = async () => {
     const token:string|null = localStorage?.getItem("access_token");
     const expireTime:string|null = localStorage?.getItem("expireTime");
 
-    if (token && expireTime) {
+    if (token!=undefined && expireTime!=undefined) {
       const currentDate:Date = new Date();
       const expTime:Date = new Date(expireTime);
       if (currentDate >= expTime) {
-      await getToken()
+      await getRefreshToken()
       }
     }else{
      await getToken()
@@ -72,6 +97,7 @@ export default function FlightSearch() {
       {/*flight start here*/}
       <div className="flight_panel" style={{ display: "block" }}>
        <TabBtns searchData={searchData} setSearchData={setSearchData}/>
+       <button onClick={()=>getRefreshToken()}>get refresh_token</button>
        {searchData.searchType=='MultiCity'?  <MultiCity/>:<OneWayRoundTrip searchData={searchData} setSearchData={setSearchData}/>}
        
       

@@ -24,6 +24,9 @@ export default function TabBtns({searchData,setSearchData}:any) {
               <a href="#" id="HMultiCity" className={`TwoWayTab ${searchData.searchType=='MultiCity'?"active":''}`}  onClick={()=>setSearchData({...searchData,searchType:'MultiCity'})}>
                 Multi City{" "}
               </a>
+
+
+
             </li>
           </ul>
         </div>
