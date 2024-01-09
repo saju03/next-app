@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.4",
     "downshift": "^8.3.1",
     "next": "14.0.4",
@@ -16,6 +17,7 @@
     "react-datepicker": "^4.25.0",
     "react-dom": "^18",
     "react-ease-picker": "^0.0.19",
+    "react-redux": "^9.0.4",
     "request-ip": "^3.3.0"
   },
   "devDependencies": {

@@ -1,6 +1,9 @@
-import FlightSearch from "@/SearchPannel/Flight/FlightSearch";
-import Footer from "@/SearchPannel/partials/Footer";
-import HeaderNavBar from "@/SearchPannel/partials/HeaderNavBar";
+import FlightSearch from "@/_SearchPannel/_Flight/FlightSearch";
+import Footer from "@/_SearchPannel/_partials/Footer";
+import HeaderNavBar from "@/_SearchPannel/_partials/HeaderNavBar";
+
+
+
 
 export default function Home() {
   return (
@@ -234,7 +237,7 @@ export default function Home() {
                 <FlightSearch />
                 {/*flight package end here*/}
                 {/*hotel start here*/}
-                <div className="hotel_panel" style={{ display: "none" }}>
+                {/* <div className="hotel_panel" style={{ display: "none" }}>
                   <div className="search_field_main hotel_search">
                     <div className="search_field_lft">
                       <div className="field_row">
@@ -391,10 +394,10 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/*hotel end here*/}
                 {/*activity start here*/}
-                <div className="activity_panel" style={{ display: "none" }}>
+                {/* <div className="activity_panel" style={{ display: "none" }}>
                   <div className="search_field_main activity_search">
                     <div className="search_field_lft">
                       <div className="field_row">
@@ -541,10 +544,10 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/*activity end here*/}
                 {/*insurance start here*/}
-                <div className="insurance_panel" style={{ display: "none" }}>
+                {/* <div className="insurance_panel" style={{ display: "none" }}>
                   <div className="search_field_main insurance_search">
                     <div className="search_field_lft">
                       <div className="field_row">
@@ -741,7 +744,7 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/*insurance end here*/}
               </div>
               {/*Search Panel end here*/}

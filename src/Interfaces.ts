@@ -119,3 +119,10 @@ export interface MultiCityComponentProps {
     isMultiCity:boolean;
   }
   
+
+  
+export interface AuthState {
+  accessToken: string;
+  refreshToken: string;
+  expireTime: string;
+}

@@ -2,10 +2,10 @@
 
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import TabBtns from "../components/TabBtns";
-import OneWayRoundTrip from "../components/OneWayRoundTrip";
-import MultiCity from "../components/MultiCity";
-import { MultiCitySearchDataType, OneWayRoundSearchDataType, TwoSearchTypes } from "@/Interfaces";
+import TabBtns from "../_components/TabBtns";
+import OneWayRoundTrip from "../_components/OneWayRoundTrip";
+import MultiCity from "../_components/MultiCity";
+import {  TwoSearchTypes } from "@/Interfaces";
 
 
 
@@ -56,8 +56,6 @@ export default function FlightSearch() {
       const response: AxiosResponse = await axios.post(
         "http://localhost:3000/api/verifytoken"
       );  
-
-      console.log(response);
       
       sessionStorage.setItem("access_token", response.data.access_token);
       sessionStorage.setItem("expireTime", response.data.expireTime);
@@ -70,14 +68,12 @@ export default function FlightSearch() {
   }  
 
   const getRefreshToken =async () => {
+    alert('')
     const refreshToken:string|null = sessionStorage.getItem('refresh_token')
 
-    if(refreshToken){
+    if(refreshToken||refreshToken!=undefined||refreshToken!=null){
       try {
       const {data} = await axios.post('http://localhost:3000/api/get-refresh-token',{refreshToken:refreshToken});
-      console.log(data);
-      
-      
       sessionStorage.setItem("access_token",data.token.access_token);
       sessionStorage.setItem("expireTime", data.token.expireTime);
       sessionStorage.setItem("refresh_token", data.token.refresh_token);
@@ -121,14 +117,11 @@ export default function FlightSearch() {
 
 
 
-
-
-
-
-
  
   return (
     <>
+
+
       {/*flight start here*/}
       <div className="flight_panel" style={{ display: "block" }}>
        <TabBtns searchData={searchData} setSearchData={setSearchData}/>

@@ -1,11 +1,19 @@
+import { TwoSearchTypes } from "@/Interfaces";
 import React from "react";
+
+interface TravelerBoxTypes {
+  isOpen:boolean,
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>,
+  searchData:TwoSearchTypes,
+  setSearchData:React.Dispatch<React.SetStateAction<TwoSearchTypes>>
+}
 
 export default function TravellerBox({
   setOpen,
   isOpen,
   searchData,
   setSearchData,
-}: any) {
+}: TravelerBoxTypes) {
 
 // use redux to store the session data for a backups 
 

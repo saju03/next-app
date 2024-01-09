@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
-import { getDeviceLogin } from "../helpers/CommonHelper";
+import { getDeviceLogin } from "../_helpers/CommonHelper";
 import axios, { AxiosResponse } from "axios";
 import { ApiResponse, Config, TokenTypes } from "@/Interfaces";
 
@@ -54,6 +54,8 @@ export const authHandler = async (req: NextRequest, res: NextResponse) => {
 };
 
 
+
+
 export const getRefreshToken = async(req:NextRequest,res:NextResponse)=>{
 const data:any = await req.json()
   
@@ -83,7 +85,14 @@ return token;
 
 
 } catch (error) {
-  console.error(error)
+
+//  console.log(error);
+
+return {
+  token:'unauth token',
+  status:401
+}
+ 
 }
 }
 

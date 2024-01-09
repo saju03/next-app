@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { authHandler } from "../controllers/AuthController";
+import { authHandler } from "../_controllers/AuthController";
 
 
 
