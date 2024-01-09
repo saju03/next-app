@@ -43,6 +43,8 @@ export const authHandler = async (req: NextRequest, res: NextResponse) => {
         token_type:tokenResponse.data.token_type,
         refresh_token:tokenResponse.data.refresh_token
       }
+      console.log(token);
+      
 
       return token;
     } catch (error) {

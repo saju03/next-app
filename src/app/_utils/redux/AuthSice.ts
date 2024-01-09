@@ -17,10 +17,13 @@ const authDetails = createSlice({
     }as AuthState,
     reducers: {
         setAuthenticationDetails:(state,action:PayloadAction<SetAuthDetailsPayload>)=>{
+            console.log(action);
+            
             state.accessToken = action.payload.accessToken;
             state.refreshToken = action.payload.refreshToken;
             state.expireTime = action.payload.expireTime;
         }
+        
     }
 })
 export type AuthDetailsAction = PayloadAction<SetAuthDetailsPayload>;

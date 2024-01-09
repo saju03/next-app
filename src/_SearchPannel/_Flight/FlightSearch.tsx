@@ -7,11 +7,13 @@ import OneWayRoundTrip from "../_components/OneWayRoundTrip";
 import MultiCity from "../_components/MultiCity";
 import {  TwoSearchTypes } from "@/Interfaces";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthenticationDetails } from "@/app/_utils/redux/AuthSice";
 
 
 export default function FlightSearch() {
 
-
+  const dispatch = useDispatch()
   const [searchData,setSearchData] = useState<TwoSearchTypes>({
     fromCity:null,
     toCity:null,
@@ -56,7 +58,7 @@ export default function FlightSearch() {
       const response: AxiosResponse = await axios.post(
         "http://localhost:3000/api/verifytoken"
       );  
-      
+      dispatch(setAuthenticationDetails({accessToken:response.data.access_token,refreshToken:response.data.expireTime,expireTime:response.data.refresh_token}))
       sessionStorage.setItem("access_token", response.data.access_token);
       sessionStorage.setItem("expireTime", response.data.expireTime);
       sessionStorage.setItem("refresh_token", response.data.refresh_token);
@@ -68,12 +70,13 @@ export default function FlightSearch() {
   }  
 
   const getRefreshToken =async () => {
-    alert('')
-    const refreshToken:string|null = sessionStorage.getItem('refresh_token')
+   
+    const refreshToken:string|null = sessionStorage.getItem('refresh_token')??'';
 
     if(refreshToken||refreshToken!=undefined||refreshToken!=null){
       try {
       const {data} = await axios.post('http://localhost:3000/api/get-refresh-token',{refreshToken:refreshToken});
+      dispatch(setAuthenticationDetails({accessToken:data.token.access_token,refreshToken:data.token.expireTime,expireTime:data.token.refresh_token}))
       sessionStorage.setItem("access_token",data.token.access_token);
       sessionStorage.setItem("expireTime", data.token.expireTime);
       sessionStorage.setItem("refresh_token", data.token.refresh_token);
@@ -90,12 +93,11 @@ export default function FlightSearch() {
 
 
   const verifyToken = async () => {
-    const token:string|null = sessionStorage?.getItem("access_token");
-    const expireTime:string|null = sessionStorage?.getItem("expireTime");
-
+    const token:string|null = sessionStorage?.getItem("access_token")?? "undefined";
+    const expireTime:string = sessionStorage?.getItem("expireTime") ?? "undefined";
 // breakable conditon need revision
 
-    if (token!=undefined  && expireTime!=undefined ||expireTime!=undefined ) {
+    if (token!="undefined" ||expireTime!=='undefined' ) {
       const currentDate:Date = new Date();
       const expTime:Date = new Date(expireTime);
       if (currentDate >= expTime) {
@@ -110,6 +112,7 @@ export default function FlightSearch() {
     const intervalId = setInterval(() => {
       verifyToken();
     }, 20000);  
+
     verifyToken();
     return () => clearInterval(intervalId);
   }, []);  

@@ -1,3 +1,4 @@
+import App from "@/_SearchPannel/_Flight/App";
 import FlightSearch from "@/_SearchPannel/_Flight/FlightSearch";
 import Footer from "@/_SearchPannel/_partials/Footer";
 import HeaderNavBar from "@/_SearchPannel/_partials/HeaderNavBar";
@@ -234,7 +235,7 @@ export default function Home() {
               {/*Search Panel start here*/}
               <div className="searchpanel_box">
                 {/*flight start here*/}
-                <FlightSearch />
+                <App />
                 {/*flight package end here*/}
                 {/*hotel start here*/}
                 {/* <div className="hotel_panel" style={{ display: "none" }}>
