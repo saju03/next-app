@@ -1,4 +1,4 @@
-import { MinDateState, MultiCityComponentProps, MultiCitySearchDataType, OneWayRoundSearchDataType } from "@/Interfaces";
+import { MinDateState, MultiCityComponentProps, MultiCitySearchDataType, OneWayRoundSearchDataType, TwoSearchTypes } from "@/Interfaces";
 import DatePicker from "react-datepicker";
 import DownShift from "./DownShift";
 import "react-datepicker/dist/react-datepicker.css";

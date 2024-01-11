@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { DatePicker, RangePicker } from "react-ease-picker";
 import TravellerBox from "./TravellerBox";
 import {  SearchDataProps } from "@/Interfaces";
+import axios from "axios";
 
    
 export default function OneWayRoundTrip({searchData,setSearchData}:SearchDataProps) {
@@ -19,6 +20,14 @@ export default function OneWayRoundTrip({searchData,setSearchData}:SearchDataPro
  }
 
 
+ const reg = async ()=>{
+
+  const {data } = await axios.post('http://localhost:3000/api/register-user',{email:'sajusuresh03@gmail.com'})
+  console.log(data);
+  
+ }
+
+
   return (
     <>
       {/* Round */}
@@ -28,6 +37,7 @@ export default function OneWayRoundTrip({searchData,setSearchData}:SearchDataPro
         style={{ display: "block" }}
       >
         <div className="search_field_main">
+          <button onClick={reg}>REG</button>
           <div className="search_field_lft">
             <div className="field_row">
               <div className="field_clm_3">
