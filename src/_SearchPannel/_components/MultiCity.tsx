@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import MultiCityInputs from "./MultiCityInputs";
-import { MultiCityComponentProps } from "@/Interfaces";
+import MultiCityLegs from "./MultiCityLegs";
+import { MinDateState, MultiCityComponentProps } from "@/Interfaces";
 
 
 type LoopLengthElementType = number;
@@ -15,7 +15,13 @@ interface MyComponentProps {
 
 
 export default function MultiCity({ MultiCitySearchData, setMultiCitySearchData }: MultiCityComponentProps) {
-
+  
+  const [minDate,setMinDate] = useState<MinDateState>({
+    leg1:new Date(),
+    leg2:new Date(),
+    leg3:new Date(),
+    leg4:new Date()
+  })
   const [loopLength, setLoopLength] = useState([
     1, 2
   ])
@@ -38,7 +44,7 @@ export default function MultiCity({ MultiCitySearchData, setMultiCitySearchData 
             {
               loopLength.map((i) => {
                 return (
-                  <MultiCityInputs MultiCitySearchData={MultiCitySearchData} setMultiCitySearchData={setMultiCitySearchData} index={i} key={i} loopLength={loopLength} setLoopLength={setLoopLength} isMultiCity={true} />
+                  <MultiCityLegs MultiCitySearchData={MultiCitySearchData} setMultiCitySearchData={setMultiCitySearchData} index={i} key={i} loopLength={loopLength} setLoopLength={setLoopLength} isMultiCity={true} setMinDate ={setMinDate} minDate={minDate} />
                 )
               })
             }

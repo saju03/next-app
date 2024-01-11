@@ -15,6 +15,12 @@ export interface TokenTypes {
   expireTime: Date;
   token_type: string;
   refresh_token: string;
+
+}
+
+export interface errToken{
+  token:string;
+  status:number;
 }
 
 export type userInfoType = {
@@ -41,7 +47,7 @@ export interface ApiResponse {
 }
 
 
-export  type MultiCitySearchDataType = {
+export interface MultiCitySearchDataType {
     fromCity1: string|AirportData|null;
     toCity1: string|AirportData|null;
     fromCity2: string|AirportData|null;
@@ -50,25 +56,25 @@ export  type MultiCitySearchDataType = {
     toCity3: string|AirportData|null;
     fromCity4: string|AirportData|null;
     toCity4: string|AirportData|null;
-    legDate1: string|AirportData|null;
-    legDate2: string|AirportData|null;
-    legDate3: string|AirportData|null;
-    legDate4: string|AirportData|null;
+    legDate1: string|Date|null;
+    legDate2: string|Date|null;
+    legDate3: string|Date|null;
+    legDate4: string|Date|null;
     adult: number;
     child: number;
     infant: number;
     searchType: string;
     fromCity: AirportData|null;
     toCity: AirportData|null;
-    fromDate: string; // Assuming fromDate is a string
-    toDate: string; // Assuming toDate is a string
+    fromDate: string;
+    toDate: string; 
 }
 
 export type OneWayRoundSearchDataType= {
     fromCity: AirportData|null;
     toCity: AirportData|null;
-    fromDate: string; // Assuming fromDate is a string
-    toDate: string; // Assuming toDate is a string
+    fromDate: string; 
+    toDate: string;
     adult: number;
     child: number;
     infant: number;
@@ -125,4 +131,12 @@ export interface AuthState {
   accessToken: string;
   refreshToken: string;
   expireTime: string;
+}
+
+export interface MinDateState {
+  leg1: Date;
+  leg2: Date;
+  leg3: Date;
+  leg4: Date;
+  [key: string]: Date
 }

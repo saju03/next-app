@@ -1,6 +1,7 @@
-import { MultiCityComponentProps } from "@/Interfaces";
+import { MinDateState, MultiCityComponentProps, MultiCitySearchDataType, OneWayRoundSearchDataType } from "@/Interfaces";
 import DatePicker from "react-datepicker";
 import DownShift from "./DownShift";
+import "react-datepicker/dist/react-datepicker.css";
 
 type LoopLengthElementType = number;
 
@@ -8,15 +9,38 @@ interface MultiCityInputs extends MultiCityComponentProps {
     index: number,
     loopLength: LoopLengthElementType[],
     setLoopLength: React.Dispatch<React.SetStateAction<LoopLengthElementType[]>>
+    minDate:MinDateState,
+    setMinDate: React.Dispatch<React.SetStateAction<MinDateState>>
 }
 
 
 
 
-export default function MultiCityInputs({ MultiCitySearchData, setMultiCitySearchData, loopLength, setLoopLength, index }: MultiCityInputs) {
+export default function MultiCityLegs({ MultiCitySearchData, setMultiCitySearchData, loopLength, setLoopLength, index,minDate,setMinDate }: MultiCityInputs) {
+    
+    const setMinDates = (date:Date)=>{
 
-    const handleDate = () => {
+        for (let i = index; i<=4; i++) {
+           setMinDate(prevMinDate => {
+            
+            const updatedMinDate = { ...prevMinDate, [`leg${i+1}`]: date };
+            return updatedMinDate;
+          })
+           setMultiCitySearchData(MultiCitySearchData => {
+            const updatedMinDate = { ...MultiCitySearchData, [`legDate${i}`]: date };
+            return updatedMinDate;
+          })
+            
+        }
 
+
+    }
+    const selectedDatePrefix = `legDate${index}` as keyof MultiCitySearchDataType
+    
+    const handleDate = (date:Date) => {
+            
+        setMinDates(date);
+        
 
     }
     return (
@@ -31,16 +55,17 @@ export default function MultiCityInputs({ MultiCitySearchData, setMultiCitySearc
                 </div>
                 <div className="field_clm_3">
                     <div className="form-group location_icon">
+                        <div>
+
                         <DownShift searchData={MultiCitySearchData} setSearchData={setMultiCitySearchData} index={index} isFromCity={false} isMultiCity={true} />
+                        </div>
                     </div>
                 </div>
                 <div className="field_clm_2">
                     <div className="form-group calendar_icon">
                         <label>Departure</label>
+                        <DatePicker selected={MultiCitySearchData[selectedDatePrefix]} onChange={handleDate} minDate={index == 1 ? new Date() : minDate[`leg${index}`]}/>
 
-                        <DatePicker
-                            onChange={handleDate}
-                        />
                     </div>
                 </div>
 

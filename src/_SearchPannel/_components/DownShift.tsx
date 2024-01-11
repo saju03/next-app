@@ -39,7 +39,7 @@ export default function DownShift({
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_ElasticUrl}Data/GetAirPort?value=${e.target.value}&culture=1&size=10`
     );
-    setAirportList(data.hits.hits);
+    setAirportList(data?.hits?.hits);
   };
 
   const handleChange = (e: AirportData | null) => {
