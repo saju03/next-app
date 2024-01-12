@@ -10,9 +10,8 @@ type BodyType = {
 export const POST = async (req: NextRequest, res: NextResponse) => {
   const cookieStore = cookies();
   const cookie = cookieStore.getAll();
-
   const data: BodyType = await req.json();
-  console.log(data);
+
 
   const url: string = `${process.env.NEXT_PUBLIC_API_URL}token`;
   const params: string = `grant_type=refresh_token&refresh_token=${data.refreshToken}`;

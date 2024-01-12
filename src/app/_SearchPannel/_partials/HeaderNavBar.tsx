@@ -1,3 +1,5 @@
+import LoginSingup from "../_components/LoginSignup";
+
 export default function HeaderNavBar (){
 
     return(
@@ -683,6 +685,9 @@ export default function HeaderNavBar (){
                 <a href="#">Manage Bookings</a>
               </li>
               <li>
+              
+              </li>
+              <li>
                 <a href="#">
                   <span className="fntArabic">عربي </span>
                 </a>
@@ -841,12 +846,18 @@ export default function HeaderNavBar (){
               </li>
             </ul>
           </div>
+          <LoginSingup/>
         </div>
+        
+
         <div className="container">
+        
           {" "}
           <a className="navbar-brand" href="#">
             <div className="headlogo" />
           </a>
+
+        
           <div
             className="top_nav_section collapse navbar-collapse"
             id="mobile_nav"
@@ -856,6 +867,7 @@ export default function HeaderNavBar (){
                 <li className="mob_mybook">
                   <a href="#">Manage Bookings</a>
                 </li>
+               
                 <li className="mob_lang">
                   <a href="#">
                     <span className="fntArabic">عربي </span>

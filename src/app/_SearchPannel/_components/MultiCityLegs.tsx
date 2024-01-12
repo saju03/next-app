@@ -35,8 +35,8 @@ export default function MultiCityLegs({ MultiCitySearchData, setMultiCitySearchD
 
 
     }
-    const selectedDatePrefix = `legDate${index}` as keyof MultiCitySearchDataType
     
+    const selectedDatePrefix = `legDate${index}` as keyof MultiCitySearchDataType
     const handleDate = (date:Date) => {
             
         setMinDates(date);

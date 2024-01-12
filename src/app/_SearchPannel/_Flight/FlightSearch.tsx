@@ -62,9 +62,9 @@ export default function FlightSearch() {
       console.log(response);
 
       dispatch(setAuthenticationDetails({ accessToken: response.data.access_token, refreshToken: response.data.refresh_token, expireTime: response.data.expireTime }))
-      sessionStorage.setItem("access_token", response.data.access_token);
-      sessionStorage.setItem("expireTime", response.data.expireTime);
-      sessionStorage.setItem("refresh_token", response.data.refresh_token);
+      sessionStorage.setItem("access_token", response.data.token.access_token);
+      sessionStorage.setItem("expireTime", response.data.token.expireTime);
+      sessionStorage.setItem("refresh_token", response.data.token.refresh_token);
       return;
     } catch (error) {
       console.log(error);
