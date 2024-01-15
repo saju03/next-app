@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import FlightSearch from './FlightSearch'
+import FlightSearch from '../_SearchPannel/FlightSearch'
 import { Provider } from 'react-redux'
 import store from "@/app/_utils/redux/Store";
 
@@ -10,10 +10,7 @@ export default function App() {
     <>
 <Provider store={store}>
   <FlightSearch/>
-  
-
-</Provider>
-
+</Provider>  
     </>
   )
-}
+} 

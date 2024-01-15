@@ -1,4 +1,4 @@
-import App from "./_SearchPannel/_Flight/App";
+import App from "./_Flight/App";
 import Footer from "./_SearchPannel/_partials/Footer";
 import HeaderNavBar from "./_SearchPannel/_partials/HeaderNavBar";
 

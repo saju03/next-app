@@ -1,59 +1,61 @@
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { getRefreshToken, getToken } from "../_helpers/CommonHelper";
 
-import { cookies, headers } from "next/headers";
-import { ApiResponse, Config, TokenTypes, errToken } from "@/Interfaces";
-import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
-import { getDeviceLogin } from "../_helpers/CommonHelper";
-import axios, { AxiosResponse } from "axios";
+export async function GET(req: NextRequest, res: NextResponse) {
+    // TOKEN AND OTHER DETILS ARE SOTRED IN THE HTTP COOKIES 
+  const cookieStore = cookies();
+  const cookie = cookieStore.getAll();
+  const Data = cookie.find((cookie) => cookie.name === "auth")?.value;
+  const tokenData = Data && JSON.parse(Data);
+  if (tokenData) {
+// IF TOKEN EXEST IN THE COOKIE THEN CHECK FOR REFRESH TOKEN IS REQUIRED 
 
-// route /api
-export async function POST(req: NextRequest, res: NextResponse) {
-  const headersList: ReadonlyHeaders = headers();
-  try {
-    const userInfo: ApiResponse = await getDeviceLogin(headersList);
-    const config: Config = {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    };
-    const url: string = `${process.env.NEXT_PUBLIC_API_URL}token`;
+    const currentDate: Date = new Date();
+    const expTime: Date = new Date(tokenData.expireTime);
+    if (currentDate >= expTime) {
+// CALLING REFRESH TOKEN IF IT NECCESSORY ACCORDING TO THE EXPIRE TIME CONDITION
 
-    const params: string = `username=${userInfo?.userName}&password=${userInfo.password}&grant_type=password&type=auth`;
-
-    // Get New Token
-    try {
-      const tokenResponse: AxiosResponse = await axios.post<ApiResponse>(
-        url,
-        params,
-        config
-      );
-
-      const newExpiryTime: Date = new Date(tokenResponse.data[".expires"]);
-      newExpiryTime.setMinutes(newExpiryTime.getMinutes() - 7);
-
-      const token: TokenTypes = {
-        access_token: tokenResponse.data.access_token,
-        expireTime: newExpiryTime,
-        token_type: tokenResponse.data.token_type,
-        refresh_token: tokenResponse.data.refresh_token,
-      };
-
+      const token = await getRefreshToken(tokenData.refresh_token);
       if (token != undefined) {
-        const cookieStore = cookies();
         cookieStore.set({
           name: "auth",
-          value: token?.access_token,
+          value: JSON.stringify(token),
           httpOnly: true,
           maxAge: 36000,
         });
-        return NextResponse.json({token},{status:200});
+        return NextResponse.json({ message: "access granded" }, { status: 200 });
+      } else {
+        return NextResponse.json(
+          { message: "not authenticated cookie error" },
+          { status: 401 }
+        );
       }
-      return NextResponse.json({message:'unauth'},{status:401})
-    } catch (error) {
-      console.error;
+    } 
+    else {
+        // IF THE TOKEN EXIST AND IT IS VALID THEN RETURN
+      return NextResponse.json({ message: "access granded" }, { status: 200 });
     }
-  } catch (error) {
-    console.log(error);
+
+  }else{
+    // IF TOKEN DOES NOT EXIST THEN CALL FOR NEW TOKEN
+    const token  = await getToken();
+    if (token != undefined) {
+        cookieStore.set({
+          name: "auth",
+          value: JSON.stringify(token),
+          httpOnly: true,
+          maxAge: 36000,
+          
+        });
+        return NextResponse.json({ message: "access granded" }, { status: 200 });
+      } else {
+        return NextResponse.json(
+          { message: "not authenticated cookie error" },
+          { status: 401 }
+        );
+      }
   }
+
 
 }

@@ -8,6 +8,7 @@ type BodyType = {
 };
 
 export const POST = async (req: NextRequest, res: NextResponse) => {
+  
   const cookieStore = cookies();
   const cookie = cookieStore.getAll();
   const data: BodyType = await req.json();
@@ -34,7 +35,14 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       refresh_token: refreshToken.data.refresh_token,
     };
 
-    return NextResponse.json({ token }, { status: 200 });
+    cookieStore.set({
+      name:'auth',
+      value:JSON.stringify(token),
+      httpOnly:true,
+      expires:1799
+    })
+
+    return NextResponse.json({ message:'success' }, { status: 200 });
   } catch (error) {
     //  console.log(error);
 
