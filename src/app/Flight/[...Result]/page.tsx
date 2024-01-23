@@ -1,3 +1,4 @@
+import FlightResults from '@/app/_Result/Flight/page/FlightResults';
 import Footer from '@/app/_SearchPannel/_partials/Footer';
 import HeaderNavBar from '@/app/_SearchPannel/_partials/HeaderNavBar';
 import React from 'react'
@@ -9,6 +10,8 @@ console.log(params);
   return (
     <div>
         <HeaderNavBar/>
+        <FlightResults/>
+       
         <Footer/>
     </div>
   )
