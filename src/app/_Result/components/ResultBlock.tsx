@@ -150,7 +150,7 @@ export default function ResultBlock() {
                 <div className="FrSelctMain">
                   <div className="FlgtSelect d-flex">
                     <a
-                      href="javascript:void(0);"
+                       
                       data-toggle="modal"
                       data-target="#fl_brandes_rslt"
                       className="theme_btnStyle resltselectbtn branded_btn"
@@ -161,7 +161,7 @@ export default function ResultBlock() {
                   <div className="Fl_Dtls">
                     <div className="d-flex justify-content-end">
                       <a
-                        href="javascript:void(0);"
+                         
                         data-toggle="modal"
                         data-target="#fl_details_rslt"
                         className="button_light flightdetailsbt result_btn"
@@ -175,7 +175,7 @@ export default function ResultBlock() {
             </div>
             {/* Resultright */}
           </div>
-          <a href="javascript:void(0);" className="result__more_options">
+          <a   className="result__more_options">
             +10 more at same price <i className="flight_moreoption_down" />
           </a>{" "}
         </div>

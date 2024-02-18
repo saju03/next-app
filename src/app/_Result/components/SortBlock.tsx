@@ -10,7 +10,7 @@ export default function SortBlock() {
   <ul className="">
     <li>
       {" "}
-      <a className="" href="javascript:void(0);">
+      <a className=""  >
         {" "}
         <i className="Fl_ChepestIcon" />
         <div className="cheap_text">
@@ -25,7 +25,7 @@ export default function SortBlock() {
     </li>
     <li>
       {" "}
-      <a className="active" href="javascript:void(0);">
+      <a className="active"  >
         {" "}
         <i className="Fl_FastestIcon" />
         <div className="cheap_text">
@@ -40,7 +40,7 @@ export default function SortBlock() {
     </li>
     <li>
       {" "}
-      <a className=" " href="javascript:void(0);">
+      <a className=" "  >
         {" "}
         <i className="Fl_BestIcon" />
         <div className="cheap_text">
