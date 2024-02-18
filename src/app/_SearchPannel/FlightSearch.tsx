@@ -9,6 +9,7 @@ import { TwoSearchTypes } from "@/Interfaces";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthenticationDetails } from "@/app/_utils/redux/AuthSice";
+import { verifyToken } from "../_utils/helpers/authHelpers";
 
 export default function FlightSearch() {
   const dispatch = useDispatch();
@@ -48,45 +49,8 @@ export default function FlightSearch() {
       toDate: "",
     });
 
-  const getToken = async () => {
-    try {
-      const response: AxiosResponse = await axios.get(
-        "http://localhost:3000/api/getToken"
-      );
-      console.log(response);
 
-      dispatch(
-        setAuthenticationDetails({
-          accessToken: response.data.access_token,
-          refreshToken: response.data.refresh_token,
-          expireTime: response.data.expireTime,
-        })
-      );
-      // sessionStorage.setItem("access_token", response.data.token.access_token);
-      // sessionStorage.setItem("expireTime", response.data.token.expireTime);
-      // sessionStorage.setItem("refresh_token", response.data.token.refresh_token);
-      return;
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const verifyToken = async () => {
-    try {
-      const tokenVerification = await axios.get(
-        "http://localhost:3000/api/verifyToken"
-      );
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError: AxiosError = error;
-        if (axiosError.response?.status === 401) {
-          getToken();
-        } else {
-          console.log(error);
-        }
-      }
-    }
-  };
 
 
 
@@ -94,7 +58,7 @@ export default function FlightSearch() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       verifyToken();
-    }, 20000);
+    }, 60000);
 
     verifyToken();
     return () => clearInterval(intervalId);

@@ -5,10 +5,9 @@ import { DatePicker, RangePicker } from "react-ease-picker";
 import TravellerBox from "./TravellerBox";
 import { SearchDataProps } from "@/Interfaces";
 import axios from "axios";
-import { SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 import { useRouter } from "next/navigation";
 
-export default function OneWayRoundTrip({
+export default  function  OneWayRoundTrip({
   searchData,
   setSearchData,
 }: SearchDataProps) {
@@ -23,6 +22,7 @@ export default function OneWayRoundTrip({
     ) {
       alert("enter valid city or airport");
     }else{
+      
       const url:string = `Flight/Result/${searchData.searchType}/${searchData.fromCity._source.code}/${searchData.toCity._source.code}/A-${searchData.adult}-C-${searchData.child}-I${searchData.infant}/Economy/all_flight/Y-N/false`
       router.push(url)
 

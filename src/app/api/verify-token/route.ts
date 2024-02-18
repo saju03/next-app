@@ -3,11 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { getRefreshToken, getToken } from "../_helpers/CommonHelper";
 
 export async function GET(req: NextRequest, res: NextResponse) {
+  
+  
     // TOKEN AND OTHER DETILS ARE SOTRED IN THE HTTP COOKIES 
   const cookieStore = cookies();
   const cookie = cookieStore.getAll();
   const Data = cookie.find((cookie) => cookie.name === "auth")?.value;
   const tokenData = Data && JSON.parse(Data);
+
   if (tokenData) {
 // IF TOKEN EXEST IN THE COOKIE THEN CHECK FOR REFRESH TOKEN IS REQUIRED 
 
@@ -23,13 +26,28 @@ export async function GET(req: NextRequest, res: NextResponse) {
           value: JSON.stringify(token),
           httpOnly: true,
           maxAge: 36000,
+          
         });
         return NextResponse.json({ message: "access granded" }, { status: 200 });
       } else {
-        return NextResponse.json(
-          { message: "not authenticated cookie error" },
-          { status: 401 }
-        );
+        // in case IF THE REFRESH TOKEN EXIST AND CODULDNT GET NEW TOKEN WITH IT
+        const token  = await getToken();
+        if (token != undefined) {
+            cookieStore.set({
+              name: "auth",
+              value: JSON.stringify(token),
+              httpOnly: true,
+              maxAge: 36000,
+              
+            });
+            return NextResponse.json({ message: "access granded" }, { status: 200 });
+          } else {
+            return NextResponse.json(
+              { message: "not authenticated cookie error" },
+              { status: 401 }
+            );
+          }
+
       }
     } 
     else {
