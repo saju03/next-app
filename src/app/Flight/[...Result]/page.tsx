@@ -1,17 +1,24 @@
-import FlightResults from '@/app/_Result/Flight/page/FlightResults';
-import Footer from '@/app/_SearchPannel/_partials/Footer';
-import HeaderNavBar from '@/app/_SearchPannel/_partials/HeaderNavBar';
+import FlightResultPage from '@/components/Flight/_Result/page/FlightResultPage';
+import Footer from '@/components/Flight/_partials/Footer';
+import HeaderNavBar from '@/components/Flight/_partials/HeaderNavBar';
 import React from 'react'
+interface ParamsType {
+  params: {
+    Result: string[];
+  };
+  searchParams: Record<string, any>;
+}
+export default function page({params}:ParamsType) {
 
-export default function page(params:Array<string>) {
+
 
     
   return (
     <div>
         <HeaderNavBar/>
-        <FlightResults/>
+        <FlightResultPage params={params.Result}/>
        
         <Footer/>
-    </div>
+    </div>  
   )
 }

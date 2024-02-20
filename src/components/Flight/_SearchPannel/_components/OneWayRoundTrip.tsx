@@ -6,6 +6,8 @@ import TravellerBox from "./TravellerBox";
 import { SearchDataProps } from "@/Interfaces";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { format } from 'date-fns';
+import ShortUniqueId from "short-unique-id";
 
 export default  function  OneWayRoundTrip({
   searchData,
@@ -13,6 +15,12 @@ export default  function  OneWayRoundTrip({
 }: SearchDataProps) {
   const [isOpen, setOpen] = useState(false);
   const router = useRouter()
+  const { randomUUID } = new ShortUniqueId({ length: 5 });
+
+  const dateFormat = (date:string) :string=>{
+return format(new Date(date), 'ddMMMyy')
+  }
+
   const HandleSubmit = (e: any) => {
     e.preventDefault();
     if (
@@ -22,8 +30,7 @@ export default  function  OneWayRoundTrip({
     ) {
       alert("enter valid city or airport");
     }else{
-      
-      const url:string = `Flight/Result/${searchData.searchType}/${searchData.fromCity._source.code}/${searchData.toCity._source.code}/A-${searchData.adult}-C-${searchData.child}-I${searchData.infant}/Economy/all_flight/Y-N/false`
+   const url:string = `Flight/Result/${searchData.searchType}/${searchData.fromCity._source.code}-${searchData.toCity._source.code}-${dateFormat(searchData.fromDate)}_${searchData.toCity._source.code}-${searchData.fromCity._source.code}-${dateFormat(searchData.toDate)}/A-${searchData.adult}-C-${searchData.child}-I-${searchData.infant}/Economy/all_flight/Y-N/false?=${randomUUID()}`
       router.push(url)
 
     }

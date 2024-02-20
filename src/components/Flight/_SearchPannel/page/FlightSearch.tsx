@@ -2,14 +2,14 @@
 
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import TabBtns from "./_components/TabBtns";
-import OneWayRoundTrip from "./_components/OneWayRoundTrip";
-import MultiCity from "./_components/MultiCity";
+import TabBtns from "../_components/TabBtns";
+import OneWayRoundTrip from "../_components/OneWayRoundTrip";
+import MultiCity from "../_components/MultiCity";
 import { TwoSearchTypes } from "@/Interfaces";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setAuthenticationDetails } from "@/app/_utils/redux/AuthSice";
-import { verifyToken } from "../_utils/helpers/authHelpers";
+import { setAuthenticationDetails } from "@/lib/_utils/_redux/AuthSice"; 
+import { verifyToken } from "@/lib/helpers/authHelpers";  
 
 export default function FlightSearch() {
   const dispatch = useDispatch();

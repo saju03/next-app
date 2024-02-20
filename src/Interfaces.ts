@@ -140,3 +140,10 @@ export interface MinDateState {
   leg4: Date;
   [key: string]: Date
 }
+
+export interface TokenData {
+  access_token: string;
+  expireTime: string;
+  refresh_token: string;
+  token_type: string;
+}

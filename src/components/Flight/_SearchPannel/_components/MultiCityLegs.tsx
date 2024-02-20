@@ -1,4 +1,4 @@
-import { MinDateState, MultiCityComponentProps, MultiCitySearchDataType, OneWayRoundSearchDataType, TwoSearchTypes } from "@/Interfaces";
+import { MinDateState, MultiCityComponentProps, MultiCitySearchDataType } from "@/Interfaces";
 import DatePicker from "react-datepicker";
 import DownShift from "./DownShift";
 import "react-datepicker/dist/react-datepicker.css";
@@ -36,7 +36,7 @@ export default function MultiCityLegs({ MultiCitySearchData, setMultiCitySearchD
 
     }
     
-    const selectedDatePrefix = `legDate${index}` as keyof MultiCitySearchDataType
+    const selectedDatePrefix = `legDate${index}` as keyof MultiCitySearchDataType 
     const handleDate = (date:Date) => {
             
         setMinDates(date);

@@ -1,15 +1,19 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { getRefreshToken, getToken } from "../_helpers/CommonHelper";
+import { TokenData } from "@/Interfaces";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   
   
     // TOKEN AND OTHER DETILS ARE SOTRED IN THE HTTP COOKIES 
-  const cookieStore = cookies();
-  const cookie = cookieStore.getAll();
-  const Data = cookie.find((cookie) => cookie.name === "auth")?.value;
-  const tokenData = Data && JSON.parse(Data);
+    
+  const cookieStore:ReadonlyRequestCookies = cookies();
+  const cookie:RequestCookie[] = cookieStore.getAll();
+  const Data:string|undefined = cookie.find((cookie) => cookie.name === "auth")?.value;
+  const tokenData:TokenData  = Data && JSON.parse(Data);
 
   if (tokenData) {
 // IF TOKEN EXEST IN THE COOKIE THEN CHECK FOR REFRESH TOKEN IS REQUIRED 
@@ -26,7 +30,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
           value: JSON.stringify(token),
           httpOnly: true,
           maxAge: 36000,
-          
         });
         return NextResponse.json({ message: "access granded" }, { status: 200 });
       } else {

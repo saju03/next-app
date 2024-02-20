@@ -1,6 +1,6 @@
 import App from "./_Flight/App";
-import Footer from "./_SearchPannel/_partials/Footer";
-import HeaderNavBar from "./_SearchPannel/_partials/HeaderNavBar";
+import Footer from "../components/Flight/_partials/Footer";
+import HeaderNavBar from "../components/Flight/_partials/HeaderNavBar";
 
 
 

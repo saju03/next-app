@@ -1,21 +1,26 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import ModifySearch from "../../components/ModifySearch";
-import Filter from "../../components/Filter";
-import SortBlock from "../../components/SortBlock";
-import ResultBlock from "../../components/ResultBlock";
-import axios, { AxiosResponse } from "axios";
-import { verifyToken } from "@/app/_utils/helpers/authHelpers";
+import ModifySearch from "../components/ModifySearch";
+import Filter from "../components/Filter";
+import SortBlock from "../components/SortBlock";
+import ResultBlock from "../components/ResultBlock";
 
-export default  function FlightResults() {
+import { verifyToken } from "@/lib/helpers/authHelpers";  
+import { getResults } from "../_utils/helpers";
+
+
+interface FlightResultPageProps {
+  params: string[];
+}
+export default  function FlightResultPage({params}:FlightResultPageProps) {
+  
+  
+
 
   
   const [flightResults,setFlightResults]=useState([])
 
-  const getSearchId = async()=>{
 
-    const data = await axios.get(`http://localhost:3000/api/get-search-id`)
-  }
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -29,7 +34,7 @@ export default  function FlightResults() {
 
   
 useEffect(()=>{
-  getSearchId()
+  getResults()
 })
 
   return (
