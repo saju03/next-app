@@ -1,5 +1,5 @@
 export interface Headers {
-  [key: string]: string;
+  [key: string]: string|number;
 }
 export interface Config {
   headers: Headers;
