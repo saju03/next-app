@@ -1,25 +1,24 @@
 "use client";
 import DownShift from "./DownShift";
 import React, { useState } from "react";
-import { DatePicker, RangePicker } from "react-ease-picker";
+import DatePicker from "react-datepicker";
 import TravellerBox from "./TravellerBox";
 import { SearchDataProps } from "@/Interfaces";
-import axios from "axios";
 import { useRouter } from "next/navigation";
-import { format } from 'date-fns';
+import { addDays, format } from "date-fns";
 import ShortUniqueId from "short-unique-id";
 
-export default  function  OneWayRoundTrip({
+export default function OneWayRoundTrip({
   searchData,
   setSearchData,
 }: SearchDataProps) {
   const [isOpen, setOpen] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const { randomUUID } = new ShortUniqueId({ length: 5 });
 
-  const dateFormat = (date:string) :string=>{
-return format(new Date(date), 'ddMMMyy')
-  }
+  const dateFormat = (date: string): string => {
+    return format(new Date(date), "ddMMMyy");
+  };
 
   const HandleSubmit = (e: any) => {
     e.preventDefault();
@@ -29,26 +28,28 @@ return format(new Date(date), 'ddMMMyy')
       searchData.fromCity._id == searchData.toCity._id
     ) {
       alert("enter valid city or airport");
-    }else{
-   const url:string = `Flight/Result/${searchData.searchType}/${searchData.fromCity._source.code}-${searchData.toCity._source.code}-${dateFormat(searchData.fromDate)}_${searchData.toCity._source.code}-${searchData.fromCity._source.code}-${dateFormat(searchData.toDate)}/A-${searchData.adult}-C-${searchData.child}-I-${searchData.infant}/Economy/all_flight/Y-N/false?=${randomUUID()}`
-      router.push(url)
-
+    } else {
+      const url: string = `Flight/Result/${searchData.searchType}/${
+        searchData.fromCity._source.code
+      }-${searchData.toCity._source.code}-${dateFormat(searchData.fromDate)}_${
+        searchData.toCity._source.code
+      }-${searchData.fromCity._source.code}-${dateFormat(
+        searchData.toDate
+      )}/A-${searchData.adult}-C-${searchData.child}-I-${
+        searchData.infant
+      }/Economy/all_flight/Y-N/false?=${randomUUID()}`;
+      router.push(url);
     }
-
-
-
-
-
   };
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const onChange = (dates) => {
+    console.log(dates);
 
-  const reg = async () => {
-    const { data } = await axios.post(
-      "http://localhost:3000/api/register-user",
-      { email: "sajusuresh03@gmail.com" }
-    );
-    console.log(data);
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
   };
-
   return (
     <>
       {/* Round */}
@@ -58,7 +59,6 @@ return format(new Date(date), 'ddMMMyy')
         style={{ display: "block" }}
       >
         <div className="search_field_main">
-          <button onClick={reg}>REG</button>
           <div className="search_field_lft">
             <div className="field_row">
               <div className="field_clm_3">
@@ -88,20 +88,21 @@ return format(new Date(date), 'ddMMMyy')
                   <div className="form-group calendar_icon">
                     <label>Departure</label>
                     {searchData.searchType == "RoundTrip" ? (
-                      <RangePicker
-                        minDate={new Date().toString()}
-                        onSelect={(start, end) => {
-                          setSearchData({
-                            ...searchData,
-                            fromDate: start,
-                            toDate: end,
-                          });
-                        }}
+                      <DatePicker
+                        selected={startDate}
+                        onChange={onChange}
+                        startDate={startDate}
+                        endDate={endDate}
+                       
+                        selectsRange
                       />
                     ) : (
                       <DatePicker
-                        onSelect={(start) => {
-                          setSearchData({ ...searchData, fromDate: start });
+                        selectsRange={true}
+                        startDate={startDate}
+                        endDate={endDate}
+                        onChange={(update) => {
+                          debugger;
                         }}
                       />
                     )}
@@ -114,10 +115,12 @@ return format(new Date(date), 'ddMMMyy')
                 >
                   <div className="form-group calendar_icon">
                     <label>Return</label>
-                    <RangePicker
-                      minDate={searchData.fromDate}
-                      onSelect={(start, end) => {
-                        console.log(start, end);
+                    <DatePicker
+                      selectsRange={true}
+                      startDate={startDate}
+                      endDate={endDate}
+                      onChange={(update) => {
+                        debugger;
                       }}
                     />
                   </div>
