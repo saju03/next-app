@@ -165,3 +165,6 @@ img{
 /*Theme style start here*/
 
 
+.react-datepicker{
+    display: flex !important
+}

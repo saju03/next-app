@@ -22,6 +22,7 @@ export default function FlightSearch() {
     child: 0,
     infant: 0,
     searchType: "RoundTrip",
+    cabin:'Economy'
   });
 
   const [multiCitySearchData, setMultiCitySearchData] =
@@ -47,6 +48,7 @@ export default function FlightSearch() {
       toCity: null,
       fromDate: "",
       toDate: "",
+      cabin:'Economy'
     });
 
 

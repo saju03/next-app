@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import TravellerBox from "./TravellerBox";
 import { SearchDataProps } from "@/Interfaces";
 import { useRouter } from "next/navigation";
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 import ShortUniqueId from "short-unique-id";
 
 export default function OneWayRoundTrip({
@@ -37,19 +37,24 @@ export default function OneWayRoundTrip({
         searchData.toDate
       )}/A-${searchData.adult}-C-${searchData.child}-I-${
         searchData.infant
-      }/Economy/all_flight/Y-N/false?=${randomUUID()}`;
+      }/${searchData.cabin}/all_flight/${searchData.fromCity._source.isallairport ? 'Y':'N'}-${searchData.toCity._source.isallairport ? 'Y':'N'}/false?=${randomUUID()}`;
       router.push(url);
     }
   };
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
-  const onChange = (dates) => {
-    console.log(dates);
+  const [endDate, setEndDate] = useState(new Date());
 
+  const onChange = (dates: [Date, Date]) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+    setSearchData({ ...searchData, fromDate: start.toString() });
+    setSearchData({
+      ...searchData,
+      toDate: end ? end.toString() :  start.toString(),
+    });
   };
+
   return (
     <>
       {/* Round */}
@@ -89,21 +94,25 @@ export default function OneWayRoundTrip({
                     <label>Departure</label>
                     {searchData.searchType == "RoundTrip" ? (
                       <DatePicker
+                        monthsShown={2}
+                        minDate={new Date()}
                         selected={startDate}
                         onChange={onChange}
                         startDate={startDate}
                         endDate={endDate}
-                       
+                        value={format(startDate, "dd MMM'' yy")}
                         selectsRange
                       />
                     ) : (
                       <DatePicker
-                        selectsRange={true}
+                        monthsShown={2}
+                        minDate={new Date()}
+                        selectsRange={false}
                         startDate={startDate}
-                        endDate={endDate}
-                        onChange={(update) => {
-                          debugger;
+                        onChange={(date: Date) => {
+                          setStartDate(date);
                         }}
+                        value={format(startDate, "dd MMM'' yy")}
                       />
                     )}
                   </div>
@@ -116,12 +125,13 @@ export default function OneWayRoundTrip({
                   <div className="form-group calendar_icon">
                     <label>Return</label>
                     <DatePicker
+                      monthsShown={2}
+                      minDate={new Date()}
                       selectsRange={true}
                       startDate={startDate}
                       endDate={endDate}
-                      onChange={(update) => {
-                        debugger;
-                      }}
+                      onChange={onChange}
+                      value={format(endDate ?? new Date(), "dd MMM'' yy")}
                     />
                   </div>
                 </div>

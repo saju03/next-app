@@ -68,6 +68,7 @@ export interface MultiCitySearchDataType {
     toCity: AirportData|null;
     fromDate: string;
     toDate: string; 
+    cabin:string;
 }
 
 export type OneWayRoundSearchDataType= {
@@ -79,6 +80,7 @@ export type OneWayRoundSearchDataType= {
     child: number;
     infant: number;
     searchType: string;
+    cabin:string
   }
 
 

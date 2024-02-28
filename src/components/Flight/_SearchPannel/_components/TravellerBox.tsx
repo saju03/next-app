@@ -1,11 +1,11 @@
 import { TwoSearchTypes } from "@/Interfaces";
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 interface TravelerBoxTypes {
-  isOpen:boolean,
-  setOpen:React.Dispatch<React.SetStateAction<boolean>>,
-  searchData:TwoSearchTypes,
-  setSearchData:React.Dispatch<React.SetStateAction<TwoSearchTypes>>
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  searchData: TwoSearchTypes;
+  setSearchData: React.Dispatch<React.SetStateAction<TwoSearchTypes>>;
 }
 
 export default function TravellerBox({
@@ -14,70 +14,71 @@ export default function TravellerBox({
   searchData,
   setSearchData,
 }: TravelerBoxTypes) {
-
-// use redux to store the session data for a backups 
-
+  const handleCabin = (e:  ChangeEvent<HTMLSelectElement>) => {
+    setSearchData({ ...searchData, cabin: e.target.value });
+  };
 
   const handleTravelerPlus = (pax: number) => {
     switch (pax) {
       case 0:
-                if (searchData.adult + searchData.child + searchData.infant >= 9) {
-                  alert("maax num pax");
-                } else {
-                  setSearchData({ ...searchData, adult: searchData.adult + 1 });
-                }
+        if (searchData.adult + searchData.child + searchData.infant >= 9) {
+          alert("maax num pax");
+        } else {
+          setSearchData({ ...searchData, adult: searchData.adult + 1 });
+        }
         break;
 
-        case 1:if (searchData.adult + searchData.child + searchData.infant >= 9) {
-                    alert("maax num pax");
-                }else{
-                    setSearchData({ ...searchData, child: searchData.child + 1 });
-                }
+      case 1:
+        if (searchData.adult + searchData.child + searchData.infant >= 9) {
+          alert("maax num pax");
+        } else {
+          setSearchData({ ...searchData, child: searchData.child + 1 });
+        }
 
-            break;
-
-      case 2:if (searchData.adult + searchData.child + searchData.infant >= 9) {
-                alert("maax num pax");
-            }else{
-                if(searchData.adult<=searchData.infant){
-                    alert('infant should be less than adult')
-                }else{
-                    setSearchData({ ...searchData, infant: searchData.infant + 1 });
-                }
-            }
         break;
-        default:
+
+      case 2:
+        if (searchData.adult + searchData.child + searchData.infant >= 9) {
+          alert("maax num pax");
+        } else {
+          if (searchData.adult <= searchData.infant) {
+            alert("infant should be less than adult");
+          } else {
+            setSearchData({ ...searchData, infant: searchData.infant + 1 });
+          }
+        }
+        break;
+      default:
     }
   };
   const handleTravelerMinus = (pax: number) => {
     switch (pax) {
-        case 0:
-                  if (searchData.adult  <= 1) {
-                    alert("min one adult required ");
-                  } else {
-                    setSearchData({ ...searchData, adult: searchData.adult - 1 });
-                  }
-          break;
-  
-          case 1:if (searchData.child  <= 0) {
-                      alert("its 0");
-                  }else{
-                      setSearchData({ ...searchData, child: searchData.child - 1 });
-                  }
-  
-              break;
-  
-        case 2:if (searchData.infant <= 0) {
-                  alert("its 0");
-              }else{
-                  
-                      setSearchData({ ...searchData, infant: searchData.infant - 1 });
-                  
-              }
-          break;
-          default:
-      }
+      case 0:
+        if (searchData.adult <= 1) {
+          alert("min one adult required ");
+        } else {
+          setSearchData({ ...searchData, adult: searchData.adult - 1 });
+        }
+        break;
 
+      case 1:
+        if (searchData.child <= 0) {
+          alert("its 0");
+        } else {
+          setSearchData({ ...searchData, child: searchData.child - 1 });
+        }
+
+        break;
+
+      case 2:
+        if (searchData.infant <= 0) {
+          alert("its 0");
+        } else {
+          setSearchData({ ...searchData, infant: searchData.infant - 1 });
+        }
+        break;
+      default:
+    }
   };
 
   return (
@@ -175,8 +176,10 @@ export default function TravellerBox({
         </div>
         <div className="selectCabn">
           <div className="form-group down_arrow">
-            <select className="form-control  " id=" ">
-              <option value="Economy">Economy</option>
+            <select className="form-control  " id=" " onChange={handleCabin}>
+              <option value="Economy" >
+                Economy
+              </option>
               <option value="PremiumEconomy"> Premium Economy</option>
               <option value="BusinessClass"> Business Class</option>
               <option value="FirstClass">First Class</option>
