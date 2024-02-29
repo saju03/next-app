@@ -14,17 +14,29 @@ import { verifyToken } from "@/lib/helpers/authHelpers";
 export default function FlightSearch() {
   const dispatch = useDispatch();
   const [searchData, setSearchData] = useState<TwoSearchTypes>({
-    fromCity: null,
-    toCity: null,
-    fromDate: new Date().toISOString().slice(0, 10),
-    toDate: new Date().toISOString().slice(0, 10),
+    fromCity1: null,
+    toCity1: null,
+    fromCity2: null,
+    toCity2: null,
+    fromCity3: null,
+    toCity3: null,
+    fromCity4: null,
+    toCity4: null,
+    legDate1: null,
+    legDate2: null,
+    legDate3: null,
+    legDate4: null,
     adult: 1,
     child: 0,
     infant: 0,
-    searchType: "RoundTrip",
-    cabin:'Economy'
-  });
-
+    searchType: 'RoundTrip', // or 'multiCity' depending on your case
+    cabin: 'Economy',
+    fromCity: null,
+    toCity: null,
+    fromDate: new Date().toString(),
+    toDate: new Date().toString()
+}); 
+  const [isOpen, setOpen] = useState(false);
   const [multiCitySearchData, setMultiCitySearchData] =
     useState<TwoSearchTypes>({
       fromCity1: "",
@@ -73,6 +85,8 @@ export default function FlightSearch() {
         <TabBtns searchData={searchData} setSearchData={setSearchData} />
         {searchData.searchType == "MultiCity" ? (
           <MultiCity
+          setOpen={setOpen}
+          isOpen={isOpen}
             MultiCitySearchData={multiCitySearchData}
             setMultiCitySearchData={setMultiCitySearchData}
             index={1}
@@ -80,6 +94,8 @@ export default function FlightSearch() {
           />
         ) : (
           <OneWayRoundTrip
+          isOpen ={isOpen}
+           setOpen ={setOpen}
             searchData={searchData}
             setSearchData={setSearchData}
             index={1}

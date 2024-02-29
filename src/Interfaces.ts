@@ -47,7 +47,24 @@ export interface ApiResponse {
 }
 
 
-export interface MultiCitySearchDataType {
+
+
+export type OneWayRoundSearchDataType= {
+    fromCity: AirportData|null;
+    toCity: AirportData|null;
+    fromDate: string; 
+    toDate: string;
+    adult: number;
+    child: number;
+    infant: number;
+    searchType: string;
+    cabin:string
+  }
+
+
+
+
+  export interface MultiCitySearchDataType {
     fromCity1: string|AirportData|null;
     toCity1: string|AirportData|null;
     fromCity2: string|AirportData|null;
@@ -70,29 +87,6 @@ export interface MultiCitySearchDataType {
     toDate: string; 
     cabin:string;
 }
-
-export type OneWayRoundSearchDataType= {
-    fromCity: AirportData|null;
-    toCity: AirportData|null;
-    fromDate: string; 
-    toDate: string;
-    adult: number;
-    child: number;
-    infant: number;
-    searchType: string;
-    cabin:string
-  }
-
-
-export interface MultiCityComponentProps {
-    MultiCitySearchData: TwoSearchTypes;
-    setMultiCitySearchData: React.Dispatch<React.SetStateAction<TwoSearchTypes>>;
-    index:number;
-    isMultiCity:boolean;
-  }
-
-  export type TwoSearchTypes =  OneWayRoundSearchDataType|MultiCitySearchDataType
-
   export  interface AirportData {
     _index: string;
     _type: string;
@@ -120,11 +114,14 @@ export interface MultiCityComponentProps {
     };
   };
 
+  
   export interface SearchDataProps{
     searchData:TwoSearchTypes;
     setSearchData:React.Dispatch<React.SetStateAction<TwoSearchTypes>>
     index:number;
     isMultiCity:boolean;
+    isOpen:boolean;
+    setOpen:React.Dispatch<React.SetStateAction<boolean>>;
   }
   
 
@@ -149,3 +146,18 @@ export interface TokenData {
   refresh_token: string;
   token_type: string;
 }
+
+export interface MultiCityComponentProps {
+    MultiCitySearchData: TwoSearchTypes;
+    setMultiCitySearchData: React.Dispatch<React.SetStateAction<TwoSearchTypes>>;
+    index:number;
+    isMultiCity:boolean;
+    isOpen:boolean;
+    setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+  }
+
+  export interface TwoSearchTypes extends MultiCitySearchDataType, OneWayRoundSearchDataType{
+    
+  }
+
+ 

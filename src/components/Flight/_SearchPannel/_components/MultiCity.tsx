@@ -1,81 +1,104 @@
 import React, { useState } from "react";
 import MultiCityLegs from "./MultiCityLegs";
-import { MinDateState, MultiCityComponentProps } from "@/Interfaces";
-
+import {
+  AirportData,
+  MinDateState,
+  MultiCityComponentProps,
+  MultiCitySearchDataType,
+} from "@/Interfaces";
+import TravellerBox from "./TravellerBox";
 
 type LoopLengthElementType = number;
 
-type SetLoopLengthType = React.Dispatch<React.SetStateAction<LoopLengthElementType[]>>;
+type SetLoopLengthType = React.Dispatch<
+  React.SetStateAction<LoopLengthElementType[]>
+>;
 
 interface MyComponentProps {
   loopLength: LoopLengthElementType[];
   setLoopLength: SetLoopLengthType;
 }
 
+export default function MultiCity({
+  MultiCitySearchData,
+  setMultiCitySearchData,
+  isOpen,
+  setOpen,
+}: MultiCityComponentProps) {
+  const [minDate, setMinDate] = useState<MinDateState>({
+    leg1: new Date(),
+    leg2: new Date(),
+    leg3: new Date(),
+    leg4: new Date(),
+  });
+  const [loopLength, setLoopLength] = useState([1, 2]);
 
+  const handleSearch = () => {
+    for (let i = 0; i < loopLength.length; i++) {
+      const e: number = loopLength[i];
+      const fromCityPrefix = `fromCity${e}` as keyof MultiCitySearchDataType;
+      const toCityPrefix = `toCity${e}` as keyof MultiCitySearchDataType;
+      const fromCityData = MultiCitySearchData[fromCityPrefix] as AirportData;
+      const toCityData = MultiCitySearchData[toCityPrefix] as AirportData;
+      if (
+        MultiCitySearchData[fromCityPrefix] == "" ||
+        MultiCitySearchData[toCityPrefix] == "" ||
+        MultiCitySearchData[fromCityPrefix] == null ||
+        MultiCitySearchData[toCityPrefix] == null
+      ) {
+        alert("enter city or airport on all fields");
+        return
+      }
 
-export default function MultiCity({ MultiCitySearchData, setMultiCitySearchData }: MultiCityComponentProps) {
-  
-  const [minDate,setMinDate] = useState<MinDateState>({
-    leg1:new Date(),
-    leg2:new Date(),
-    leg3:new Date(),
-    leg4:new Date()
-  })
-  const [loopLength, setLoopLength] = useState([
-    1, 2
-  ])
+      if (fromCityData._source.code === toCityData._source.code) {
+        alert("diparture and arravial airport can t be same");
+        return
+      }
+    }
+   
+    
+  };
+
   return (
     <div>
       {/* Multy */}
-      <div
-        className="FilghtClass"
-        id="HMultiCityShow"
-
-      >
+      <div className="FilghtClass" id="HMultiCityShow">
         <div className="search_field_main">
           <div className="search_field_lft">
-
-
-
-
-
-
-            {
-              loopLength.map((i) => {
-                return (
-                  <MultiCityLegs MultiCitySearchData={MultiCitySearchData} setMultiCitySearchData={setMultiCitySearchData} index={i} key={i} loopLength={loopLength} setLoopLength={setLoopLength} isMultiCity={true} setMinDate ={setMinDate} minDate={minDate} />
-                )
-              })
-            }
-
-
-
-
-
+            {loopLength.map((i) => {
+              return (
+                <MultiCityLegs
+                  MultiCitySearchData={MultiCitySearchData}
+                  setMultiCitySearchData={setMultiCitySearchData}
+                  index={i}
+                  key={i}
+                  loopLength={loopLength}
+                  setLoopLength={setLoopLength}
+                  isMultiCity={true}
+                  setMinDate={setMinDate}
+                  minDate={minDate}
+                  isOpen={false}
+                  setOpen={function (
+                    value: React.SetStateAction<boolean>
+                  ): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                />
+              );
+            })}
 
             <div className="field_row hm_multycity">
-              <div className="field_clm_3 field_passenger_sec">
-                <div className="form-group  down_arrow">
-                  <label>Travellers</label>
-                  <input
-                    type="text"
-                    name=""
-                    id="from_cityd"
-                    placeholder="1 Travellers, Economy"
-                    className=" "
-                  />
-                </div>
+              <TravellerBox
+                setSearchData={setMultiCitySearchData}
+                setOpen={setOpen}
+                isOpen={isOpen}
+                searchData={MultiCitySearchData}
+              />
 
-              </div>
               <div className="field_clm_3">
                 <div className="hm_nonstop hm_padding ">
                   <div className="hmcol_4 hmStops">
-                    <input
-                      type="checkbox"
-                      id="nonstopMulty"
-                      name="IsDirect"
-                    />
+                    <input type="checkbox" id="nonstopMulty" name="IsDirect" />
                     <label htmlFor="nonstopMulty" className="">
                       Non Stop
                     </label>
@@ -87,7 +110,11 @@ export default function MultiCity({ MultiCitySearchData, setMultiCitySearchData 
           <div className="search_field_rht">
             <div className=" ">
               <div className="field_clm_search">
-                <button className="searchBtn" id="searchBtn">
+                <button
+                  className="searchBtn"
+                  id="searchBtn"
+                  onClick={handleSearch}
+                >
                   Search
                 </button>
               </div>
@@ -97,5 +124,5 @@ export default function MultiCity({ MultiCitySearchData, setMultiCitySearchData 
       </div>
       {/* Multy End*/}
     </div>
-  )
+  );
 }

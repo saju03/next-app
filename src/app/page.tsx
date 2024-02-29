@@ -38,7 +38,7 @@ export default function Home() {
                 <ul>
                   <li>
                     <a
-                      className="tab-links umrah_package_click active"
+                      className="tab-links umrah_package_click "
                       href="#"
                     >
                       {" "}
@@ -54,7 +54,7 @@ export default function Home() {
                     </a>
                   </li>
                   <li>
-                    <a className="flight_click tab-links" href="#">
+                    <a className="flight_click tab-links active" href="#">
                       {" "}
                       <i className="flight_icon" />
                       Flight

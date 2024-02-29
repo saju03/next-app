@@ -11,8 +11,11 @@ import ShortUniqueId from "short-unique-id";
 export default function OneWayRoundTrip({
   searchData,
   setSearchData,
+  isOpen,
+   setOpen
 }: SearchDataProps) {
-  const [isOpen, setOpen] = useState(false);
+  
+
   const router = useRouter();
   const { randomUUID } = new ShortUniqueId({ length: 5 });
 

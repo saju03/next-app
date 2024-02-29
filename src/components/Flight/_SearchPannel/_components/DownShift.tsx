@@ -21,9 +21,9 @@ export default function DownShift({
   const [airpostList, setAirportList] = useState([]);
   const [inputVal, setInputVal] = useState("");
 
+  const preFixKey:string =  isFromCity ? "fromCity" :'toCity'
   const getAirPortList = async (e: any) => {
 
-    const preFixKey:string =  isFromCity ? "fromCity" :'toCity'
     if ( e.target.value == "") {
       if(isMultiCity){
         setSearchData({ ...searchData, [`${preFixKey}${index}`]: null });
@@ -58,6 +58,11 @@ export default function DownShift({
       const objectKey: string = `${preFix}${index}`;
       // updating data
       setSearchData({ ...searchData, [objectKey]: e });
+      debugger
+      if(preFix == 'toCity' && index < 4){
+        const objectKey: string = `fromCity${index+1}`;
+        setSearchData({ ...searchData, [objectKey]: e });
+      }
     }
 
     setInputVal(
@@ -74,6 +79,7 @@ export default function DownShift({
   return (
     <>
       <Downshift
+      id={`downshift${index}${preFixKey}`}
         onChange={handleChange}
         itemToString={(item: AirportData | null) => {
           return item ? item?._source.name : "";
