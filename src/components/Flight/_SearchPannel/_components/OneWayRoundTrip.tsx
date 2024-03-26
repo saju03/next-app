@@ -102,7 +102,7 @@ export default function OneWayRoundTrip({
                         selected={startDate}
                         onChange={onChange}
                         startDate={startDate}
-                        endDate={endDate}
+                        endDate={endDate} 
                         value={format(startDate, "dd MMM'' yy")}
                         selectsRange
                       />

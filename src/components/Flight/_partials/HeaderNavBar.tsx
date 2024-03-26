@@ -2,6 +2,7 @@ import LoginSingup from "../_SearchPannel/_components/LoginSignup";
 
 export default function HeaderNavBar (){
 
+
     return(
         <>
          {/*Header start here*/}

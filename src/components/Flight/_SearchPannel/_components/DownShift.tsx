@@ -58,7 +58,7 @@ export default function DownShift({
       const objectKey: string = `${preFix}${index}`;
       // updating data
       setSearchData({ ...searchData, [objectKey]: e });
-      debugger
+      
       if(preFix == 'toCity' && index < 4){
         const objectKey: string = `fromCity${index+1}`;
         setSearchData({ ...searchData, [objectKey]: e });

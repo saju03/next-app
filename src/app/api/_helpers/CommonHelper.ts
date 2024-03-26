@@ -4,15 +4,14 @@ import { ApiResponse, Config, IP, ParamsType, TokenTypes } from "@/Interfaces";
 import { headers } from "next/headers";
 
 export const getDeviceLogin = async (headersList: ReadonlyHeaders) => {
-  const ip: IP = headersList.get("x-forwarded-for");
-  let config: Config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
 
+
+// Get IP form Headder
+  const ip: IP = headersList.get("x-forwarded-for");
+// Buil URl
   const url: string = `${process.env.NEXT_PUBLIC_API_URL}api/UserAccount/BasicAuth`;
 
+  // Params
   const params: ParamsType = {
     Device: "Browser",
     UserAgent: "string",
@@ -22,18 +21,47 @@ export const getDeviceLogin = async (headersList: ReadonlyHeaders) => {
     IsMobileWeb: false,
   };
 
-  try {
-    const response: AxiosResponse = await axios.post<ApiResponse>(
-      url,
-      params,
-      config
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    // return 'error'
-  }
+  // request params
+    const requestOptions: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params)
+    };
+  
+    try {
+      // insted of axios using fetch for this call because axios have some issues,
+      //  and this call is a service worker call and axios cant handle service worker default
+
+      const response = await fetch(url, requestOptions);
+    
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const responseData: ApiResponse = await response.json();
+      return responseData; // Return the response data here
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  
+  
+
+  
+  
 };
+
+
+
+
+
+
+
+
+
 
 export const getRefreshToken = async (refreshToken: string) => {
   const url: string = `${process.env.NEXT_PUBLIC_API_URL}token`;
@@ -64,9 +92,11 @@ export const getRefreshToken = async (refreshToken: string) => {
 };
 
 export const getToken = async () => {
+  debugger
   const headersList: ReadonlyHeaders = headers();
 
   try {
+    
     const userInfo: ApiResponse = await getDeviceLogin(headersList);
     const config: Config = {
       headers: {
@@ -78,6 +108,7 @@ export const getToken = async () => {
     const params: string = `username=${userInfo?.userName}&password=${userInfo.password}&grant_type=password&type=auth`;
 
     try {
+      // change it into fetch or configure axios to service worker
       const tokenResponse: AxiosResponse = await axios.post<ApiResponse>(
         url,
         params,

@@ -4,8 +4,6 @@ import HeaderNavBar from "../components/Flight/_partials/HeaderNavBar";
 
 
 
-
-
 export default function Home() {
   return (
     <>
