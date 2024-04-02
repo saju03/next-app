@@ -7,8 +7,7 @@ import { TokenData } from './Interfaces';
 import { getRefreshToken, getToken } from './app/api/_helpers/CommonHelper';
 
 
-
-export async function middleware (req:NextRequest){
+export async function middleware (req:NextRequest,res:NextResponse){
     
     // TOKEN AND OTHER DETILS ARE SOTRED IN THE HTTP COOKIES 
 
@@ -27,25 +26,28 @@ export async function middleware (req:NextRequest){
     
           const token = await getRefreshToken(tokenData.refresh_token);
           if (token != undefined) {
-            cookieStore.set({
-              name: "auth",
-              value: JSON.stringify(token),
+            const res:NextResponse = NextResponse.next();
+            res.cookies.set('auth',JSON.stringify(token), {
               httpOnly: true,
-              maxAge: 36000,
-            });
-            return NextResponse.json({ message: "access granded" }, { status: 200 });
+              maxAge: 5000, // 1 week
+              path: '/', // The cookie is available in all pages
+            })
+  
+            return res;
+           
           } else {
             // in case IF THE REFRESH TOKEN EXIST AND CODULDNT GET NEW TOKEN WITH IT
             const token  = await getToken();
+            debugger
             if (token != undefined) {
-                cookieStore.set({
-                  name: "auth",
-                  value: JSON.stringify(token),
-                  httpOnly: true,
-                  maxAge: 36000,
-                  
-                });
-                return NextResponse.json({ message: "access granded" }, { status: 200 });
+              const res:NextResponse = NextResponse.next();
+              res.cookies.set('auth',JSON.stringify(token), {
+                httpOnly: true,
+                maxAge:5000, // 1 week
+                path: '/', // The cookie is available in all pages
+              })
+    
+              return res;
               } else {
                 return NextResponse.json(
                   { message: "not authenticated cookie error" },
@@ -57,23 +59,23 @@ export async function middleware (req:NextRequest){
         } 
         else {
             // IF THE TOKEN EXIST AND IT IS VALID THEN RETURN
-          return NextResponse.json({ message: "access granded" }, { status: 200 });
+            return NextResponse.next()  
         }
     
       }else{
         // IF TOKEN DOES NOT EXIST THEN CALL FOR NEW TOKEN
-        debugger
-        const token  = await getToken();
         
+        const token:TokenData|undefined = await getToken();
+  
         if (token != undefined) {
-            cookieStore.set({
-              name: "auth",
-              value: JSON.stringify(token),
-              httpOnly: true,
-              maxAge: 36000,
-              
-            });
-            return NextResponse.json({ message: "access granded" }, { status: 200 });
+          const res:NextResponse = NextResponse.next();
+          res.cookies.set('auth',JSON.stringify(token), {
+            httpOnly: true,
+            maxAge: 5000, // 1 week
+            path: '/', // The cookie is available in all pages
+          })
+
+          return res;
           } else {  
             return NextResponse.json(
               { message: "not authenticated cookie error" },

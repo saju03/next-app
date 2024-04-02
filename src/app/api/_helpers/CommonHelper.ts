@@ -1,6 +1,6 @@
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import axios, { AxiosResponse } from "axios";
-import { ApiResponse, Config, IP, ParamsType, TokenTypes } from "@/Interfaces";
+import { ApiResponse, Config, IP, ParamsType, TokenApiResponse, TokenTypes } from "@/Interfaces";
 import { headers } from "next/headers";
 
 export const getDeviceLogin = async (headersList: ReadonlyHeaders) => {
@@ -73,7 +73,22 @@ export const getRefreshToken = async (refreshToken: string) => {
   };
 
   try {
-    const refreshToken: AxiosResponse = await axios.post(url, params, config);
+
+
+    const fetchRefreshToken  = await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: params
+      
+    });
+    debugger
+ const refreshToken = await fetchRefreshToken.json() ;
+
+
+
+
     const newExpiryTime: Date = new Date(refreshToken.data[".expires"]);
     newExpiryTime.setMinutes(newExpiryTime.getMinutes() - 7);
 
@@ -92,7 +107,7 @@ export const getRefreshToken = async (refreshToken: string) => {
 };
 
 export const getToken = async () => {
-  debugger
+  
   const headersList: ReadonlyHeaders = headers();
 
   try {
@@ -108,27 +123,34 @@ export const getToken = async () => {
     const params: string = `username=${userInfo?.userName}&password=${userInfo.password}&grant_type=password&type=auth`;
 
     try {
-      // change it into fetch or configure axios to service worker
-      const tokenResponse: AxiosResponse = await axios.post<ApiResponse>(
-        url,
-        params,
-        config
-      );
-      const newExpiryTime: Date = new Date(tokenResponse.data[".expires"]);
-      newExpiryTime.setMinutes(newExpiryTime.getMinutes() - 7);
-
-      const token: TokenTypes = {
-        access_token: tokenResponse.data.access_token,
-        expireTime: newExpiryTime,
-        token_type: tokenResponse.data.token_type,
-        refresh_token: tokenResponse.data.refresh_token,
-      };
-
-      return token
-    } catch (error) {
-
-      console.log('token error',error);
       
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+         
+        },
+        body: params,
+      });
+    
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    
+      const tokenResponse: TokenApiResponse = await response.json();
+      const newExpiryTime: Date = new Date(tokenResponse[".expires"]);
+      newExpiryTime.setMinutes(newExpiryTime.getMinutes() - 7);
+    
+      const token: TokenTypes = {
+        access_token: tokenResponse.access_token,
+        expireTime: newExpiryTime,
+        token_type: tokenResponse.token_type,
+        refresh_token: tokenResponse.refresh_token,
+      };
+    
+      return token;
+    } catch (error) {
+      console.log('token error', error);
     }
   } catch (error) {
     console.log("device login error");

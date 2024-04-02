@@ -142,7 +142,7 @@ export interface MinDateState {
 
 export interface TokenData {
   access_token: string;
-  expireTime: string;
+  expireTime: Date;
   refresh_token: string;
   token_type: string;
 }
@@ -160,4 +160,25 @@ export interface MultiCityComponentProps {
     
   }
 
- 
+  export interface TokenApiResponse {
+    ".expires": string;
+    ".issued": string;
+    access_token: string;
+    expires_in: number;
+    IsAuthorized: string;
+    IsLoginUser: string;
+    Name: string;
+    refresh_token: string;
+    Role: string;
+    token_type: string;
+    UserName: string;
+  }
+  
+  // Define a custom type for the token
+  export interface TokenTypes {
+    access_token: string;
+    expireTime: Date;
+    token_type: string;
+    refresh_token: string;
+  }
+  
