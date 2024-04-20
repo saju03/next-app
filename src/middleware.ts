@@ -29,7 +29,7 @@ export async function middleware (req:NextRequest,res:NextResponse){
             const res:NextResponse = NextResponse.next();
             res.cookies.set('auth',JSON.stringify(token), {
               httpOnly: true,
-              maxAge: 5000, // 1 week
+              maxAge: 1800, // 1 week
               path: '/', // The cookie is available in all pages
             })
   
@@ -38,12 +38,11 @@ export async function middleware (req:NextRequest,res:NextResponse){
           } else {
             // in case IF THE REFRESH TOKEN EXIST AND CODULDNT GET NEW TOKEN WITH IT
             const token  = await getToken();
-            debugger
             if (token != undefined) {
               const res:NextResponse = NextResponse.next();
               res.cookies.set('auth',JSON.stringify(token), {
                 httpOnly: true,
-                maxAge:5000, // 1 week
+                maxAge:1800, // 1 week
                 path: '/', // The cookie is available in all pages
               })
     
@@ -71,7 +70,7 @@ export async function middleware (req:NextRequest,res:NextResponse){
           const res:NextResponse = NextResponse.next();
           res.cookies.set('auth',JSON.stringify(token), {
             httpOnly: true,
-            maxAge: 5000, // 1 week
+            maxAge: 1800, // 1 week
             path: '/', // The cookie is available in all pages
           })
 
