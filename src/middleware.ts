@@ -9,7 +9,7 @@ import { getRefreshToken, getToken } from './app/api/_helpers/CommonHelper';
 
 export async function middleware (req:NextRequest,res:NextResponse){
     
-    // TOKEN AND OTHER DETILS ARE SOTRED IN THE HTTP COOKIES 
+    // TOKEN AND OTHER DETAILS ARE STORED IN THE HTTP COOKIES 
 
   const cookieStore:ReadonlyRequestCookies = cookies();
   const cookie:RequestCookie[] = cookieStore.getAll();
@@ -17,12 +17,12 @@ export async function middleware (req:NextRequest,res:NextResponse){
   const tokenData:TokenData  = Data && JSON.parse(Data);
 
   if (tokenData) {
-    // IF TOKEN EXEST IN THE COOKIE THEN CHECK FOR REFRESH TOKEN IS REQUIRED 
+    // IF TOKEN EXIST IN THE COOKIE THEN CHECK FOR REFRESH TOKEN IS REQUIRED 
     
         const currentDate: Date = new Date();
         const expTime: Date = new Date(tokenData.expireTime);
         if (currentDate >= expTime) {
-    // CALLING REFRESH TOKEN IF IT NECCESSORY ACCORDING TO THE EXPIRE TIME CONDITION
+    // CALLING REFRESH TOKEN IF IT NECESSARY ACCORDING TO THE EXPIRE TIME CONDITION
     
           const token = await getRefreshToken(tokenData.refresh_token);
           if (token != undefined) {
@@ -36,7 +36,7 @@ export async function middleware (req:NextRequest,res:NextResponse){
             return res;
            
           } else {
-            // in case IF THE REFRESH TOKEN EXIST AND CODULDNT GET NEW TOKEN WITH IT
+            // in case IF THE REFRESH TOKEN EXIST AND couldn't GET NEW TOKEN WITH IT
             const token  = await getToken();
             if (token != undefined) {
               const res:NextResponse = NextResponse.next();

@@ -56,13 +56,6 @@ export const getDeviceLogin = async (headersList: ReadonlyHeaders) => {
 
 
 
-
-
-
-
-
-
-
 export const getRefreshToken = async (refreshToken: string) => {
   const url: string = `${process.env.NEXT_PUBLIC_API_URL}token`;
   const params: string = `grant_type=refresh_token&refresh_token=${refreshToken}`;
@@ -73,8 +66,6 @@ export const getRefreshToken = async (refreshToken: string) => {
   };
 
   try {
-
-
     const fetchRefreshToken  = await fetch(url, {
         method: 'POST',
         headers: {
