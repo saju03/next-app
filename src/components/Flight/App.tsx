@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import FlightSearch from '../../components/Flight/_SearchPannel/page/FlightSearch'
+import FlightSearch from './_SearchPannel/page/FlightSearch'
 import { Provider } from 'react-redux'
 import store from '@/lib/_utils/_redux/store' 
 

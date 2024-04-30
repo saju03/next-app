@@ -6,8 +6,7 @@ import SortBlock from "../components/SortBlock";
 import ResultBlock from "../components/ResultBlock";
 
 import { verifyToken } from "@/lib/helpers/authHelpers";  
-import { getResults } from "../_utils/helpers";
-
+import { getResults } from "../_utils/services";
 
 interface FlightResultPageProps {
   params: string[];
@@ -15,22 +14,7 @@ interface FlightResultPageProps {
 export default  function FlightResultPage({params}:FlightResultPageProps) {
   
   
-
-
-  
   const [flightResults,setFlightResults]=useState([])
-
-
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      verifyToken();
-    }, 60000);
-
-    verifyToken();
-    return () => clearInterval(intervalId);
-  }, []);
-
 
   
 useEffect(()=>{

@@ -1,4 +1,4 @@
-import App from "./_Flight/App";
+import App from "../components/Flight/App";
 import Footer from "../components/Flight/_partials/Footer";
 import HeaderNavBar from "../components/Flight/_partials/HeaderNavBar";
 

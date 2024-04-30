@@ -854,7 +854,7 @@ export default function HeaderNavBar (){
         <div className="container">
         
           {" "}
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             <div className="headlogo" />
           </a>
 

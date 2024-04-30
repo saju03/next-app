@@ -182,3 +182,85 @@ export interface MultiCityComponentProps {
     refresh_token: string;
   }
   
+  export interface UrlParamsType {
+    params: {
+      Result: string[];
+    };
+    searchParams: Record<string, any>;
+  }
+
+
+  
+interface SourceDestination {
+  Code: string;
+  IsAll: boolean;
+}
+
+interface Journey {
+  Source: SourceDestination;
+  Destination: SourceDestination;
+  Date: string; // Consider using a Date object if the date format is consistent
+  SeatClass: string;
+  Airline: string[]; // Array of airline codes
+}
+
+interface Passengers {
+  Adults: number;
+  Children: number;
+  Infant: number;
+}
+
+interface SearchConfig {
+  SearchType: number;
+  IsDirect: boolean;
+  IsFlexibleDate: boolean;
+  Currency: string;
+  APIId: number[];
+  Country: string;
+  SearchId: string;
+}
+
+interface Configuration {
+  IsBehalfMode: boolean;
+  BehalfAgency: string;
+  BehalfUser: string;
+  NationalFare: boolean;
+}
+
+interface Utm {
+  Source: string;
+  Medium: string;
+  Campaign: string;
+  Term: string;
+  Content: string;
+}
+
+interface InstantCharge {
+  InstantMarkup: number;
+  InstantDiscount: number;
+}
+
+interface RequestData {
+  Journeys: Journey[];
+  Passengers: Passengers;
+  SearchConfig: SearchConfig;
+  Configuration: Configuration;
+  Utm: Utm;
+  InstantCharge: InstantCharge;
+}
+
+
+export interface SearchParams {
+  Journeys: Journey[];
+  Passengers: Passengers;
+  SearchConfig: SearchConfig;
+  Configuration: Configuration;
+  Utm: Utm;
+  InstantCharge: InstantCharge;
+}
+
+export interface requestBodyType {
+  searchId:string,
+  url:string
+}
+

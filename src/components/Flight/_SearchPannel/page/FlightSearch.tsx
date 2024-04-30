@@ -69,14 +69,6 @@ export default function FlightSearch() {
 
 
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      verifyToken();
-    }, 60000);
-
-    verifyToken();
-    return () => clearInterval(intervalId);
-  }, []);
 
   return (
     <>
