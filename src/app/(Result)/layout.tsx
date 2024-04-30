@@ -12,6 +12,8 @@ import '../../../public/css/inner_style.css'
 import '../../../public/css/owl.theme.default.min.css'
 import '../../../public/css/owl.carousel.css'
 import '../../../public/css/base.css'
+import HeaderNavBar from '@/components/Flight/_partials/HeaderNavBar'
+import Footer from '@/components/Flight/_partials/Footer'
 export default function ResultRootLayout({
   children,
 }: {
@@ -19,7 +21,11 @@ export default function ResultRootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+      <HeaderNavBar/>
+        {children}
+        <Footer/>
+        </body>
     </html>
   )
 }
